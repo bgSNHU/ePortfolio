@@ -1,0 +1,4 @@
+.flex-container {
+    columns: 3 auto;
+    display: inline;
+}

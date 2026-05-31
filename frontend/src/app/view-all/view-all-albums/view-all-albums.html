@@ -1,1 +1,29 @@
-<p>view-all-albums works!</p>
+<h1>All albums</h1><a routerLink="/add-album">Add new album</a><br>
+<br>
+@if (allAlbums$ | async; as albumList) {
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Album Title</th>
+            <th>Artist</th>
+            <th>Release Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (album of albumList; track album._id) {
+                <tr>
+                    <td><button [routerLink]="['/edit-album', album._id]">Edit</button>
+                        <button (click)="deleteAlbum(album._id)">Delete</button>
+                    </td>
+                    <td><a [routerLink]="['/view-one-album', album._id]">{{ album.albumName }}</a></td>
+                    <td>{{ album.albumArtist }}</td>
+                    <td>{{ album.albumReleaseDate | date:'mediumDate' }}</td>
+                </tr>
+            }
+    </tbody>
+</table>
+} @else {
+    <p>Loading...</p>
+}

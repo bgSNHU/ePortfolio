@@ -10,6 +10,9 @@ local.properties
 .loadpath
 .recommenders
 
+# Dotenv secrets file
+.env
+
 # External tool builders
 .externalToolBuilders/
 

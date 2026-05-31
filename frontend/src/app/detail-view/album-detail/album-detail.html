@@ -1,1 +1,30 @@
-<p>album-detail works!</p>
+@if (isLoading) {
+    <p>Loading...</p>
+} @else {
+    <h1>{{ albumToDisplay?.albumName }}</h1><button [routerLink]="['/edit-album', albumToDisplay?._id]">Edit</button>
+    <br>
+    <h2>Album Title: {{ albumToDisplay?.albumName }}</h2>
+    <h3>Artist: {{ albumToDisplay?.albumArtist }}</h3>
+    <h4>Release Date: {{ albumToDisplay?.albumReleaseDate }}</h4>
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Song title</th>
+                <th>Length</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (song of songsToDisplay; track song._id) {
+                <tr>
+                    <td><button [routerLink]="['/edit-song', song._id]">Edit</button>
+                        <button (click)="deleteSong(song._id)">Delete</button>
+                    </td>
+                    <td>{{ song.songTitle }}</td>
+                    <td>{{ song.songTime }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
