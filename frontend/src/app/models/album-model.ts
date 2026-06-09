@@ -4,4 +4,6 @@ export interface Album {
     albumArtist: string;
     albumReleaseDate?: Date;
     albumGenre?: string;
+    albumSongs?: string[];
+    userAdded?: string;
 }

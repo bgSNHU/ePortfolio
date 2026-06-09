@@ -17,11 +17,13 @@ const albumRoutes = require('./routes/album.routes');
 const artistRoutes = require('./routes/artist.routes');
 const playlistRoutes = require('./routes/playlist.routes');
 const songRoutes = require('./routes/song.routes');
+const userRoutes = require('./routes/user.routes');
 
 app.use('/api/albums', albumRoutes);
 app.use('/api/artists', artistRoutes);
 app.use('/api/playlists', playlistRoutes);
 app.use('/api/songs', songRoutes);
+app.use('/api/users', userRoutes);
 
 // Route to check if server is running
 app.get('/', (req, res) => {

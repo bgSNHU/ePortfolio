@@ -5,4 +5,5 @@ export interface Song {
     songReleaseDate?: Date;
     songAlbum?: string;
     songTime?: string;
+    userAddedSong: string;
 }
