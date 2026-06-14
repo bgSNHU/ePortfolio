@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './add-user.html',
   styleUrl: './add-user.css',
 })
@@ -25,8 +25,21 @@ export class AddUser implements OnInit {
         userName: ['', Validators.required],
         userFirstName: ['', Validators.required],
         userLastName: ['', Validators.required],
-        userEmail: ['', Validators.required, Validators.email],
-        
+        userEmail: ['', [Validators.required, Validators.email]],
+        userRole: ['', Validators.required],
+        userPassword: ['', Validators.required]
       })
+  }
+
+  onSubmit() {
+    if (this.addUserForm.valid) {
+      this.userService.addNewUser(this.addUserForm.value).subscribe({
+        next: () => {
+          this.router.navigate(['/view-all-users']);
+        }, error: (err) => {
+          console.error('Error adding user: ', err);
+        }
+      });
+    }
   }
 }

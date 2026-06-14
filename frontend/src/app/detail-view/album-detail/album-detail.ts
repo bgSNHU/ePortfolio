@@ -7,6 +7,7 @@ import { NgZone } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { forkJoin } from 'rxjs';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
+//const { ObjectId } = require('mongodb');
 
 @Component({
   selector: 'app-album-detail',
@@ -18,6 +19,7 @@ export class AlbumDetail implements OnInit {
 
   albumToDisplay: Album | null = null;
   songsToDisplay: Song[] = [];
+  albumAddedDate: Date | null = null;
   isLoading: boolean = true;
 
   constructor(
@@ -47,6 +49,7 @@ export class AlbumDetail implements OnInit {
         this.isLoading = false;
       }
     });
+    //this.albumAddedDate = ObjectId(id).getTimestamp();
     }
   }
 
