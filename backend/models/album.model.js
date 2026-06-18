@@ -4,8 +4,14 @@ const albumSchema = new mongoose.Schema({
     albumName: { type: String, required: true, unique: true },
     albumArtist: { type: mongoose.Schema.Types.ObjectId, ref: 'Artist', required: true },
     albumReleaseDate: { type: Date },
-    albumGenre: { type: String },
-    albumSongs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Song' }],
+    albumGenre: {
+        type: { type: String },
+        //default: ''
+    },
+    albumSongs: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Song' }],
+        default: []
+    },
     userAdded: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {
     collection: 'Albums'

@@ -1,1 +1,43 @@
-<p>add-song works!</p>
+  <form [formGroup]="addSongForm" (ngSubmit)="onSubmit()">
+
+  <label for="songTitle">Song title: </label>
+  <input id="songTitle" type="text" formControlName="songTitle" />
+  @if(addSongForm?.get('songTitle')?.invalid && addSongForm?.get('songTitle')?.touched) {
+    <div class="text-danger">Please enter a Song title</div>
+  }
+
+  <label for="songArtist">Artist: </label>
+  <select id="songArtist" formControlName="songArtist">
+    <option value="">Select an artist</option>
+    @for (artist of songArtistDropdown; track artist._id) {
+        <option [value]="artist._id">{{ artist.artistName }}</option>
+    }
+    </select>
+    <a routerLink="/add-artist">+ Add new artist</a>
+
+  <label for="songReleaseDate">Release date: </label>
+  <input type="date" id="songReleaseDate" formControlName="songReleaseDate" />
+
+  <label for="songAlbum">Album: </label>
+  <select id="songAlbum" formControlName="songAlbum">
+    <option value="">Select an album</option>
+    @for (album of songAlbumDropdown; track album._id) {
+        <option [value]="album._id">{{ album.albumName }}</option>
+    }
+    </select>
+
+    <a routerLink="/add-album">+ Add new album</a>
+
+    <label for="songTime">Song duration (MM:SS): </label>
+    <input type="text" id="songTime" formControlName="songTime" placeholder="3:45"/>
+
+  <button type="submit">Submit</button>
+</form>
+
+@if (notificationService.message) {
+    <div [class]="'notification ' + notificationService.messageType">
+        {{ notificationService.message }}
+    </div>
+  }
+
+

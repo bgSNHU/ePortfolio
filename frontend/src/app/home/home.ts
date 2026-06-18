@@ -41,8 +41,8 @@ export class Home implements OnInit {
       this.randomPlaylists = results.playlists.sort(() => 0.5 - Math.random()).slice(0, 5);
       this.isLoading = false;
       this.cdr.detectChanges();
-      console.log('isLoading set to false');
-      console.log('randomAlbums:', this.randomAlbums);
+      //console.log('isLoading set to false');
+      //console.log('randomAlbums:', this.randomAlbums);
       },
     error: (err) => {
       console.error('Error loading data:', err);

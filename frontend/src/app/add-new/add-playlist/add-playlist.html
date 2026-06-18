@@ -1,1 +1,32 @@
-<p>add-playlist works!</p>
+<form [formGroup]="addPlaylistForm" (ngSubmit)="onSubmit()">
+
+  <label for="playlistTitle">Playlist title: </label>
+  <input id="playlistTitle" type="text" formControlName="playlistTitle" />
+  @if(addPlaylistForm?.get('playlistTitle')?.invalid && addPlaylistForm?.get('playlistTitle')?.touched) {
+    <div class="text-danger">Please enter a Playlist title</div>
+  }
+
+  <label for="songs">Songs: </label>
+  <select formControlName="songs" multiple>
+    <option value="">Select songs</option>
+    @for (song of allSongsDropdown; track song._id) {
+        <option [value]="song._id">{{ song.songTitle }}</option>
+    }
+
+    @if(addPlaylistForm?.get('playlistSongs')?.invalid && addPlaylistForm?.get('playlistSongs')?.touched) {
+        <div class="text-danger">Please select or add songs</div>
+    }
+    </select>
+
+    <a routerLink="/add-song">Add new song</a>
+
+  <button type="submit">Submit</button>
+  </form>
+
+  @if (notificationService.message) {
+    <div [class]="'notification ' + notificationService.messageType">
+        {{ notificationService.message }}
+    </div>
+  }
+
+

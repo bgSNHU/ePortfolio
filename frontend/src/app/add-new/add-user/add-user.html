@@ -2,23 +2,50 @@
 
   <label for="userName">Username: </label>
   <input id="userName" type="text" formControlName="userName" />
+  @if(addUserForm?.get('userName')?.invalid && addUserForm?.get('userName')?.touched) {
+    <div class="text-danger">Please enter a Username</div>
+  }
 
   <label for="userFirstName">First Name: </label>
   <input id="userFirstName" type="text" formControlName="userFirstName" />
+  @if(addUserForm?.get('userFirstName')?.invalid && addUserForm?.get('userFirstName')?.touched) {
+    <div class="text-danger">Please enter your first name</div>
+  }
 
   <label for="userLastName">Last Name: </label>
   <input id="userLastName" type="text" formControlName="userLastName" />
+  @if(addUserForm?.get('userLastName')?.invalid && addUserForm?.get('userLastName')?.touched) {
+    <div class="text-danger">Please enter your last name</div>
+  }
 
   <label for="userEmail">Email: </label>
-  <input id="userEmail" type="text" formControlName="userEmail" />
+  <input id="userEmail" type="email" formControlName="userEmail" />
+  @if(addUserForm?.get('userEmail')?.invalid && addUserForm?.get('userEmail')?.touched) {
+    <div class="text-danger">Please enter a valid email address</div>
+  }
 
   <label for="userRole">User role: </label>
   <select id="userRole" formControlName="userRole">
     <option value="">Select a role</option>
-    <option value=""
+    <option value="viewer">Viewer</option>
+    <option value="editor">Editor</option>
+    <option value="admin">Admin</option>
+  </select>
+  @if(addUserForm?.get('userRole')?.invalid && addUserForm?.get('userRole')?.touched) {
+    <div class="text-danger">Please select a role</div>
+  }
 
   <label for="userPassword">Password: </label>
   <input id="userPassword" type="password" formControlName="userPassword" />
+  @if(addUserForm?.get('userPassword')?.invalid && addUserForm?.get('userPassword')?.touched) {
+    <div class="text-danger">Please enter a valid password</div>
+  }
 
   <button type="submit">Submit</button>
-</form>
+  </form>
+
+  @if (notificationService.message) {
+    <div [class]="'notification ' + notificationService.messageType">
+        {{ notificationService.message }}
+    </div>
+  }

@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { NotificationService } from '../../services/notification.service';
+
 
 @Component({
   selector: 'app-add-user',
@@ -18,6 +20,7 @@ export class AddUser implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
+    public notificationService: NotificationService
   ){}
 
   ngOnInit(): void {
@@ -35,8 +38,10 @@ export class AddUser implements OnInit {
     if (this.addUserForm.valid) {
       this.userService.addNewUser(this.addUserForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/view-all-users']);
+          this.notificationService.showSuccess('User added successfully!');
+          setTimeout(() => this.router.navigate(['/view-all-users']), 3000);
         }, error: (err) => {
+          this.notificationService.showError('Error adding user');
           console.error('Error adding user: ', err);
         }
       });
