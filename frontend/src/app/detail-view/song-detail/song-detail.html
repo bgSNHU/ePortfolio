@@ -7,5 +7,6 @@
     <h4>On Album(s): {{ $any(songToDisplay?.songAlbum)?.albumName }}</h4>
     <h4>Song length: {{ songToDisplay?.songTime }}</h4>
     <h4>Date added: {{ songToDisplay?.createdAt | date: 'mediumDate' }}</h4>
+    <h4>Last updated: {{ songToDisplay?.updatedAt | date:'mediumDate' }}</h4>
     <br>
 

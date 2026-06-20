@@ -1,1 +1,13 @@
-<p>user-detail works!</p>
+    <h1>{{ userToDisplay?.userName }}</h1><button [routerLink]="['/edit-user', userToDisplay?._id]">Edit</button>
+    <button (click)="deleteUser(userToDisplay?._id)">Delete</button>    
+    <br>
+    <h2>UserName: {{ userToDisplay?.userName }}</h2>
+    <h3>First Name: {{ userToDisplay?.userFirstName }}</h3>
+    <h4>Last Name: {{ userToDisplay?.userLastName }}</h4>
+    <h4>User email: {{ userToDisplay?.userEmail }}</h4>
+    <h4>User role: {{ userToDisplay?.userRole }}</h4>
+    <h4>Date added: {{ userToDisplay?.createdAt | date: 'mediumDate' }}</h4>
+    <h4>Last updated: {{ userToDisplay?.updatedAt | date:'mediumDate' }}</h4>
+    <br>
+
+

@@ -1,1 +1,42 @@
-<p>edit-song works!</p>
+<form [formGroup]="editSongForm" (ngSubmit)="onSubmit()">
+
+  <label for="songTitle">Song Title: </label>
+  <input id="songTitle" type="text" formControlName="songTitle" />
+  @if(editSongForm?.get('songTitle')?.invalid && editSongForm?.get('songTitle')?.touched) {
+    <div class="text-danger">Please enter a Song name</div>
+  }
+
+  <label for="songReleaseDate">Release date: </label>
+  <input type="date" id="songReleaseDate" formControlName="songReleaseDate" />
+
+  <label for="songArtist">Artist: </label>
+  <select id="songArtist" formControlName="songArtist">
+    <option value="">Select artist</option>
+    @for (artist of artistsToDisplay; track artist._id) {
+        <option [value]="artist._id">{{ artist.artistName }}</option>
+    }
+    </select>
+    @if(editSongForm?.get('songArtist')?.invalid && editSongForm?.get('songArtist')?.touched) {
+        <div class="text-danger">Please select or add artist</div>
+    }
+
+    <a routerLink="/add-artist">Add new artist</a>
+
+    <label for="songAlbum">Albums: </label>
+  <select id="songAlbum" formControlName="songAlbum" multiple>
+    <option value="">Select Albums</option>
+    @for (album of albumsToDisplay; track album._id) {
+        <option [value]="album._id">{{ album.albumName }}</option>
+    }
+    </select>
+    @if(editSongForm?.get('songAlbum')?.invalid && editSongForm?.get('songAlbum')?.touched) {
+        <div class="text-danger">Please select or add albums</div>
+    }
+
+    <a routerLink="/add-album">Add new album</a>
+
+    <label for="songTime">Song duration (MM:SS): </label>
+    <input type="text" id="songTime" formControlName="songTime" placeholder="3:45"/>
+
+  <button type="submit">Submit</button>
+  </form>

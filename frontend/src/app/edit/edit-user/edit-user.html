@@ -1,1 +1,39 @@
-<p>edit-user works!</p>
+<form [formGroup]="editUserForm" (ngSubmit)="onSubmit()">
+
+  <label for="userName">Username: </label>
+  <input id="userName" type="text" formControlName="userName" />
+  @if(editUserForm?.get('userName')?.invalid && editUserForm?.get('userName')?.touched) {
+    <div class="text-danger">Please enter a Username</div>
+  }
+
+  <label for="userFirstName">User first name: </label>
+  <input id="userFirstName" type="text" formControlName="userFirstName" />
+  @if(editUserForm?.get('userFirstName')?.invalid && editUserForm?.get('userFirstName')?.touched) {
+    <div class="text-danger">Please enter a first name</div>
+  }
+
+  <label for="userLastName">User last name: </label>
+  <input id="userLastName" type="text" formControlName="userLastName" />
+  @if(editUserForm?.get('userLastName')?.invalid && editUserForm?.get('userLastName')?.touched) {
+    <div class="text-danger">Please enter a last name</div>
+  }
+
+  <label for="userEmail">User email: </label>
+  <input id="userEmail" type="text" formControlName="userEmail" />
+  @if(editUserForm?.get('userEmail')?.invalid && editUserForm?.get('userEmail')?.touched) {
+    <div class="text-danger">Please enter an email</div>
+  }
+
+  <label for="userRole">User role: </label>
+  <select id="userRole" formControlName="userRole">
+    <option value="">Select a role</option>
+    <option value="viewer">Viewer</option>
+    <option value="editor">Editor</option>
+    <option value="admin">Admin</option>
+  </select>
+  @if(editUserForm?.get('userRole')?.invalid && editUserForm?.get('userRole')?.touched) {
+    <div class="text-danger">Please select a role</div>
+  }
+
+  <button type="submit">Submit</button>
+</form>

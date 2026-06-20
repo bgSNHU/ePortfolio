@@ -43,11 +43,10 @@ exports.getSongsByAlbum = async (req, res) => {
 
 exports.getSongsByArtist = async (req, res) => {
     try {
-        console.log('getSongsByArtist function reached');
         const artistSongs = await Song.find({
             songArtist: req.params.id,
-        });
-        console.log('SongsByArtist successful: ', artistSongs);
+        })
+        .populate('songTitle');
         res.json(artistSongs);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -68,6 +67,7 @@ exports.getOneSong = async (req, res) => {
 };
 
 exports.updateSong = async (req, res) => {
+    console.log('updateSong triggered at controller.');
     try {
         const song = await Song.findByIdAndUpdate({
             _id: req.params.id
