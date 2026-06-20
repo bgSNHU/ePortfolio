@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { AlbumService } from '../../services/album.service';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -10,11 +10,10 @@ import { Artist } from '../../models/artist-model';
 import { forkJoin } from 'rxjs';
 import { NgZone } from '@angular/core';
 import { Album } from '../../models/album-model';
-import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-add-song',
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, AsyncPipe],
   templateUrl: './add-song.html',
   styleUrl: './add-song.css',
 })
@@ -22,6 +21,8 @@ export class AddSong implements OnInit{
   addSongForm: FormGroup = new FormGroup({});
   songArtistDropdown: Artist[] = [];
   songAlbumDropdown: Album[] = [];
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +31,7 @@ export class AddSong implements OnInit{
     private songService: SongService,
     private artistService: ArtistService,
     private ngZone: NgZone,
-    public notificationService: NotificationService
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -57,14 +58,19 @@ export class AddSong implements OnInit{
     })
   }
 
+  testMessage() {
+    this.successMessage = 'Test message!';
+    console.log('successMessage set to:', this.successMessage);
+}
+
   onSubmit() {
     if (this.addSongForm.valid) {
       this.songService.addNewSong(this.addSongForm.value).subscribe({
         next: () => {
-          this.notificationService.showSuccess('Song added successfully!');
-          setTimeout(() => this.router.navigate(['/view-all-songs']), 3000);
+            console.log('Song added successfully.')
+            alert('Song added successfully!');
+            this.router.navigate(['/view-all-songs']);
         }, error: (err) => {
-          this.notificationService.showError('Error adding song');
           console.error('Error adding song: ', err);
         }
       });

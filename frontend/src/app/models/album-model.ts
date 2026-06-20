@@ -1,9 +1,14 @@
+import { Artist } from "./artist-model";
+import { Song } from "./song-model";
+
 export interface Album {
     _id: string;
     albumName: string;
-    albumArtist: string;
+    albumArtist: string | Artist;
     albumReleaseDate?: Date;
     albumGenre?: string;
-    albumSongs?: string[];
+    albumSongs?: string[] | Song;
     userAdded?: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

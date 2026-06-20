@@ -3,7 +3,11 @@ const Playlist = require('../models/playlist.model');
 
 exports.createPlaylist = async (req, res) => {
     try {
-        const playlist = await Playlist.create(req.body);
+        const playlistData = { ...req.body };
+
+        if (!playlistData.playlistCreationDate) delete playlistData.playlistCreationDate;
+
+        const playlist = await Playlist.create(playlistData);
         res.status(201).json(playlist);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -12,7 +16,8 @@ exports.createPlaylist = async (req, res) => {
 
 exports.getPlaylists = async (req, res) => {
     try {
-        const playlists = await Playlist.find();
+        const playlists = await Playlist.find()
+        .populate('songs');
         res.json(playlists);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -23,7 +28,8 @@ exports.getOnePlaylist = async (req, res) => {
     try {
         const playlist = await Playlist.findById({
             _id: req.params.id,
-        });
+        })
+        .populate('songs');
         res.json(playlist);
     } catch (error) {
         res.status(500).json({ message: error.message });

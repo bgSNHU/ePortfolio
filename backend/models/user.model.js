@@ -24,7 +24,8 @@ const userSchema = new mongoose.Schema({
     userRole: { type: String, required: true },
     userPassword: { type: String, required: true }
 }, {
-    collection: 'Users'
+    collection: 'Users',
+    timestamps: true
 });
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,37 +1,26 @@
 <h1>Welcome to the Jukebox!</h1>
 <div class="flex-container">
     <h3>Albums</h3>
-    @if (isLoading) {
-        <p>Loading...</p>
-    } @else {
         <ul>
         @for (album of randomAlbums; track album._id) {
-                <li>{{ album.albumName }} - {{ album.albumArtist }}</li>
+                <li>{{ album.albumName }} - {{ $any(album?.albumArtist)?.artistName }}</li>
             }
         </ul>
     
         <a routerLink="/view-all-albums">View all albums</a><br>
         <a routerLink="/add-album">Add new album</a>
-    }
 
     <h3>Songs</h3>
-    @if (isLoading) {
-        <p>Loading...</p>
-    } @else {
         <ul>
             @for (song of randomSongs; track song._id) {
-                <li>{{ song.songTitle }} - {{ song.songArtist }}</li>
+                <li>{{ song.songTitle }} - {{ $any(song?.songArtist)?.artistName }}</li>
             }
         </ul>
     
         <a routerLink="/view-all-songs">View all songs</a><br>
         <a routerLink="/add-song">Add new song</a>
-    }
 
     <h3>Playlists</h3>
-    @if (isLoading) {
-        <p>Loading...</p>
-    } @else {
         <ul>
             @for (playlist of randomPlaylists; track playlist._id) {
                 <li>{{ playlist.playlistTitle }} - {{ playlist.playlistCreator }}</li>
@@ -40,7 +29,6 @@
     
         <a routerLink="/view-all-playlists">View all playlists</a><br>
         <a routerLink="/add-playlist">Add new playlist</a>
-    }
 
 </div>
 

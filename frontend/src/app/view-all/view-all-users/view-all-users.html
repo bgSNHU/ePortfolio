@@ -1,1 +1,32 @@
-<p>view-all-users works!</p>
+<h1>All users</h1><a routerLink="/add-user">Add new user</a><br>
+<br>
+@if (allUsers$ | async; as userList) {
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Userame</th>
+            <th>User email</th>
+            <th>User role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (user of userList; track user._id) {
+                <tr>
+                    <td><button [routerLink]="['/edit-user', user._id]">Edit</button>
+                        <button (click)="deleteUser(user._id)">Delete</button>
+                    </td>
+                    <td><a [routerLink]="['/view-one-user', user._id]">{{ user.userName }}</a></td>
+                    <td>{{ user.userEmail }}</td>
+                    <td>{{ user.userRole }}</td>
+                </tr>
+            }
+    </tbody>
+</table>
+} @else {
+    <p>Loading...</p>
+}
+
+
+

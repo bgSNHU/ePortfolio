@@ -1,1 +1,29 @@
-<p>view-all-songs works!</p>
+<h1>All songs</h1><a routerLink="/add-song">Add new song</a><br>
+<br>
+@if (allSongs$ | async; as songList) {
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Song Title</th>
+            <th>Artist</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (song of songList; track song._id) {
+                <tr>
+                    <td><button [routerLink]="['/edit-song', song._id]">Edit</button>
+                        <button (click)="deleteSong(song._id)">Delete</button>
+                    </td>
+                    <td><a [routerLink]="['/view-one-song', song._id]">{{ song.songTitle }}</a></td>
+                    <td>{{ $any(song?.songArtist)?.artistName }}</td>
+                </tr>
+            }
+    </tbody>
+</table>
+} @else {
+    <p>Loading...</p>
+}
+
+

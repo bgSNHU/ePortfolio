@@ -18,7 +18,7 @@
                         <button (click)="deleteAlbum(album._id)">Delete</button>
                     </td>
                     <td><a [routerLink]="['/view-one-album', album._id]">{{ album.albumName }}</a></td>
-                    <td>{{ album.albumArtist }}</td>
+                    <td>{{ $any(album?.albumArtist)?.artistName }}</td>
                     <td>{{ album.albumReleaseDate | date:'mediumDate' }}</td>
                 </tr>
             }

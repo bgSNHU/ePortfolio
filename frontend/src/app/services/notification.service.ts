@@ -1,26 +1,30 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
     providedIn: 'root',
 })
 export class NotificationService {
-    message: string = '';
-    messageType: string = '';
+    private messageSource = new BehaviorSubject<string>('');
+    private typeSource = new BehaviorSubject<string>('');
+    
+    message$ = this.messageSource.asObservable();
+    messageType$ = this.typeSource.asObservable();
 
     showSuccess(message: string): void {
-        this.message = message;
-        this.messageType = 'success';
+        this.messageSource.next(message);
+        this.typeSource.next('success');
         setTimeout(() => this.clearMessage(), 3000);
     }
 
     showError(message: string): void {
-        this.message = message;
-        this.messageType = 'error';
+        this.messageSource.next(message);
+        this.typeSource.next('error');
+        setTimeout(() => this.clearMessage(), 3000);
     }
 
     clearMessage(): void {
-        this.message = '';
-        this.messageType = '';
-        setTimeout(() => this.clearMessage(), 3000);
+        this.messageSource.next('');
+        this.typeSource.next('');
     }
 }

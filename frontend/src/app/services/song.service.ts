@@ -15,6 +15,10 @@ export class SongService {
         return this.http.get<Song[]>(this.apiUrl);
     };
 
+    getSongsByArtist(artistId: any) {
+        return this.http.get<Song[]>(`${this.apiUrl}/artist/${artistId}`);
+    }
+
     getSongsByAlbum(songAlbum: any) {
         return this.http.get<Song[]>(`${this.apiUrl}/album/${songAlbum}`);
     }

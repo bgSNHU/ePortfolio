@@ -9,7 +9,6 @@ import { ArtistService } from '../../services/artist.service';
 import { Song } from '../../models/song-model';
 import { Album } from '../../models/album-model';
 import { forkJoin } from 'rxjs';
-import { NotificationService } from '../../services/notification.service';
 
 
 @Component({
@@ -31,7 +30,6 @@ export class AddArtist implements OnInit {
     private songService: SongService,
     private artistService: ArtistService,
     private ngZone: NgZone,
-    public notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +59,9 @@ export class AddArtist implements OnInit {
     if (this.addArtistForm.valid) {
       this.artistService.addNewArtist(this.addArtistForm.value).subscribe({
         next: () => {
-          this.notificationService.showSuccess('Artist added successfully!');
-          setTimeout(() => this.router.navigate(['/view-all-artists']), 3000);
+          alert('Artist added successfully!');
+          this.router.navigate(['/view-all-artists']);
         }, error: (err) => {
-          this.notificationService.showError('Error adding artist');
           console.error('Error adding artist: ', err);
         }
       });

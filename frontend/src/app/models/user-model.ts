@@ -10,4 +10,6 @@ export interface User {
     userPlaylists?: string[];
     userRole: string;
     userPassword: string;
+    createdAt?: Date;
+    updatedAt?: Date;
 }

@@ -1,1 +1,28 @@
-<p>view-all-artists works!</p>
+<h1>All artists</h1><a routerLink="/add-artist">Add new artist</a><br>
+<br>
+@if (allArtists$ | async; as artistList) {
+
+<table>
+    <thead>
+        <tr>
+            <th></th>
+            <th>Artist Name</th>
+            <th>Birthday</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (artist of artistList; track artist._id) {
+                <tr>
+                    <td><button [routerLink]="['/edit-artist', artist._id]">Edit</button>
+                        <button (click)="deleteArtist(artist._id)">Delete</button>
+                    </td>
+                    <td><a [routerLink]="['/view-one-artist', artist._id]">{{ artist.artistName }}</a></td>
+                    <td>{{ artist.artistBirthday | date:'mediumDate' }}</td>
+                </tr>
+            }
+    </tbody>
+</table>
+} @else {
+    <p>Loading...</p>
+}
+

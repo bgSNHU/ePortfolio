@@ -3,7 +3,14 @@ const Artist = require('../models/artist.model');
 
 exports.createArtist = async (req, res) => {
     try {
-        const artist = await Artist.create(req.body);
+        const artistData = { ...req.body };
+
+        if (!artistData.artistBirthday) delete artistData.artistBirthday;
+        if (!artistData.artistSongs) delete artistData.artistSongs;
+        if (!artistData.artistAlbums) delete artistData.artistAlbums;
+        if (!artistData.userAddedAlbum) delete artistData.userAddedAlbum;
+
+        const artist = await Artist.create(artistData);
         res.status(201).json(artist);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -23,7 +30,7 @@ exports.getOneArtist = async (req, res) => {
     try {
         const artist = await Artist.findById({
             _id: req.params.id,
-        });
+        })
         res.json(artist);
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -9,7 +9,6 @@ import { ArtistService } from '../../services/artist.service';
 import { Song } from '../../models/song-model';
 import { Artist } from '../../models/artist-model';
 import { forkJoin } from 'rxjs';
-import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-add-album',
@@ -30,7 +29,6 @@ export class AddAlbum implements OnInit{
     private songService: SongService,
     private artistService: ArtistService,
     private ngZone: NgZone,
-    public notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -61,10 +59,9 @@ export class AddAlbum implements OnInit{
     if (this.addAlbumForm.valid) {
       this.albumService.addNewAlbum(this.addAlbumForm.value).subscribe({
         next: () => {
-          this.notificationService.showSuccess('Album added successfully!');
-          setTimeout(() => this.router.navigate(['/view-all-albums']), 3000);
+          alert('Album added successfully!');
+          this.router.navigate(['/view-all-albums']);
         }, error: (err) => {
-          this.notificationService.showError('Error adding album');
           console.error('Error adding album: ', err);
         }
       });

@@ -8,7 +8,8 @@ const songSchema = new mongoose.Schema({
     songTime: { type: String },
     userAddedSong: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {
-    collection: 'Songs'
+    collection: 'Songs',
+    timestamps: true
 });
 
 module.exports = mongoose.model('Song', songSchema);

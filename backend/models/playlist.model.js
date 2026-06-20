@@ -6,7 +6,8 @@ const playlistSchema = new mongoose.Schema({
     playlistCreator:{ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     playlistCreationDate: { type: Date }
 }, {
-    collection: 'Playlists'
+    collection: 'Playlists',
+    timestamps: true
 });
 
 module.exports = mongoose.model('Playlist', playlistSchema);

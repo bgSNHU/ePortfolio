@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationService } from '../../services/notification.service';
 import { SongService } from '../../services/song.service';
 import { PlaylistService } from '../../services/playlist.service';
 import { UserService } from '../../services/user.service';
@@ -21,7 +20,6 @@ export class AddPlaylist implements OnInit{
   allSongsDropdown: Song [] = [];
 
   constructor(
-    public notificationService: NotificationService,
     private ngZone: NgZone,
     private formBuilder: FormBuilder,
     private songService: SongService,
@@ -52,10 +50,9 @@ export class AddPlaylist implements OnInit{
     if (this.addPlaylistForm.valid) {
       this.playlistService.addNewPlaylist(this.addPlaylistForm.value).subscribe({
         next: () => {
-          this.notificationService.showSuccess('Playlist added successfully!');
-          setTimeout(() => this.router.navigate(['/view-all-playlists']), 3000);
+          alert('Playlist added successfully!');
+          this.router.navigate(['/view-all-playlists']);
         }, error: (err) => {
-          this.notificationService.showError('Error adding playlist');
           console.error('Error adding playlist: ', err);
         }
       })

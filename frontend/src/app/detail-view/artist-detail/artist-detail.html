@@ -1,1 +1,31 @@
-<p>artist-detail works!</p>
+    <h1>{{ artistToDisplay?.artistName }}</h1><button [routerLink]="['/edit-artist', artistToDisplay?._id]">Edit</button>
+    <br>
+    <h2>Artist Name: {{ artistToDisplay?.artistName }}</h2>
+    <h3>Birthday: {{ artistToDisplay?.artistBirthday | date:'mediumDate' }}</h3>
+    <h4>Added by user: {{artistToDisplay?.userAddedAlbum }}</h4>
+    <h4>Date added: {{ artistToDisplay?.createdAt | date: 'mediumDate' }}</h4>
+    <br>
+
+    <h3><u>Songs by {{ artistToDisplay?.artistName }}</u></h3>
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Song title</th>
+                <th>Length</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (song of songsToDisplay; track song._id) {
+                <tr>
+                    <td>
+                        <button [routerLink]="['/edit-song', song._id]">Edit</button>
+                        <button (click)="deleteSong(song._id)">Delete</button>
+                    </td>
+                    <td>{{ song.songTitle }}</td>
+                    <td>{{ song.songTime }}</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+

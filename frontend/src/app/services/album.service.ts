@@ -19,6 +19,10 @@ export class AlbumService {
         return this.http.get<Album>(`${this.apiUrl}/${ _id}`);
     };
 
+    getAlbumsByArtist(artistId: any) {
+        return this.http.get<Album[]>(`${this.apiUrl}/artist/${artistId}`);
+    }
+
     addNewAlbum(album: any) {
         return this.http.post(this.apiUrl, album);
     };

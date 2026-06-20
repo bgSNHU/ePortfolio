@@ -3,7 +3,14 @@ const Song = require('../models/song.model');
 
 exports.createSong = async (req, res) => {
     try {
-        const song = await Song.create(req.body);
+        const songData = { ...req.body };
+
+        if (!songData.songAlbum) delete songData.songAlbum;
+        if (!songData.songReleaseDate) delete songData.songReleaseDate;
+        if (!songData.userAddedSong) delete songData.userAddedSong;
+        if (!songData.songTime) delete songData.userAddedSong;
+
+        const song = await Song.create(songData);
         res.status(201).json(song);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -12,7 +19,9 @@ exports.createSong = async (req, res) => {
 
 exports.getSongs = async (req, res) => {
     try {
-        const songs = await Song.find();
+        const songs = await Song.find()
+        .populate('songArtist')
+        .populate('songAlbum');
         res.json(songs);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -23,8 +32,23 @@ exports.getSongsByAlbum = async (req, res) => {
     try {
         const albumSongs = await Song.find({
             songAlbum: req.params.id,
-        });
+        })
+        .populate('songArtist')
+        .populate('songAlbum');
         res.json(albumSongs);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    };
+};
+
+exports.getSongsByArtist = async (req, res) => {
+    try {
+        console.log('getSongsByArtist function reached');
+        const artistSongs = await Song.find({
+            songArtist: req.params.id,
+        });
+        console.log('SongsByArtist successful: ', artistSongs);
+        res.json(artistSongs);
     } catch (error) {
         res.status(500).json({ message: error.message });
     };
@@ -34,7 +58,9 @@ exports.getOneSong = async (req, res) => {
     try {
         const song = await Song.findById({
             _id: req.params.id,
-        });
+        })
+        .populate('songArtist')
+        .populate('songAlbum');
         res.json(song);
     } catch (error) {
         res.status(500).json({ message: error.message });

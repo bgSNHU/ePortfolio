@@ -3,7 +3,14 @@ const User = require('../models/user.model');
 
 exports.createUser = async (req, res) => {
     try {
-        const user = await User.create(req.body);
+        const userData = { ...req.body };
+
+        if (!userData.userSongContributions) delete userData.userSongContributions;
+        if (!userData.userArtistContributions) delete userData.userArtistContributions;
+        if (!userData.userPlaylistContributions) delete userData.userPlaylistContributions;
+        if (!userData.userPlaylists) delete userData.userPlaylists;
+
+        const user = await User.create(userData);
         res.status(201).json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
