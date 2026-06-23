@@ -10,6 +10,7 @@ import { Artist } from '../../models/artist-model';
 import { forkJoin } from 'rxjs';
 import { NgZone } from '@angular/core';
 import { Album } from '../../models/album-model';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-add-song',
@@ -31,10 +32,12 @@ export class AddSong implements OnInit{
     private songService: SongService,
     private artistService: ArtistService,
     private ngZone: NgZone,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
+
     this.addSongForm = this.formBuilder.group({
       songTitle: ['', Validators.required],
       songArtist: ['', Validators.required],

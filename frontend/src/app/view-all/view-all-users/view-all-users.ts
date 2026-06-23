@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { User } from '../../models/user-model';
 import { UserService } from '../../services/user.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-view-all-users',
@@ -21,6 +22,7 @@ export class ViewAllUsers implements OnInit {
   constructor(
     private userService: UserService,
     private confirmDialogService: ConfirmDialogService,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

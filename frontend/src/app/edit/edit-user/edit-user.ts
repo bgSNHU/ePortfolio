@@ -5,6 +5,7 @@ import { ActivatedRoute, Route, Router, RouterLink } from '@angular/router';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-edit-user',
@@ -23,7 +24,8 @@ export class EditUser implements OnInit {
     private confirmDialogService: ConfirmDialogService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

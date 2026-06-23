@@ -8,7 +8,7 @@ export interface Album {
     albumReleaseDate?: Date;
     albumGenre?: string;
     albumSongs?: string[] | Song;
-    userAdded?: string;
+    userAddedAlbum?: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

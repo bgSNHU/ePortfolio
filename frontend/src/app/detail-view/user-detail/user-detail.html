@@ -1,13 +1,54 @@
-    <h1>{{ userToDisplay?.userName }}</h1><button [routerLink]="['/edit-user', userToDisplay?._id]">Edit</button>
-    <button (click)="deleteUser(userToDisplay?._id)">Delete</button>    
-    <br>
-    <h2>UserName: {{ userToDisplay?.userName }}</h2>
-    <h3>First Name: {{ userToDisplay?.userFirstName }}</h3>
-    <h4>Last Name: {{ userToDisplay?.userLastName }}</h4>
-    <h4>User email: {{ userToDisplay?.userEmail }}</h4>
-    <h4>User role: {{ userToDisplay?.userRole }}</h4>
-    <h4>Date added: {{ userToDisplay?.createdAt | date: 'mediumDate' }}</h4>
-    <h4>Last updated: {{ userToDisplay?.updatedAt | date:'mediumDate' }}</h4>
-    <br>
+ <div class="container mt-4">
 
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">{{ userToDisplay?.userName }}</h3>
+            <div class="d-flex gap-2">
+                <button [routerLink]="['/edit-user', userToDisplay?._id]"
+                    class="btn btn-outline-light btn-sm">Edit User</button>
+                <button (click)="deleteUser(userToDisplay?._id)"
+                    class="btn btn-danger btn-sm">Delete User</button>
+                <a routerLink="/" class="btn btn-secondary btn-sm">Home</a>
+            </div>    
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-borderless">
+                            <tbody>
+                                <tr>
+                                    <th scope="row" class="text-muted">UserName</th>
+                                    <td>{{ userToDisplay?.userName }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-muted">First Name</th>
+                                    <td>{{ userToDisplay?.userFirstName }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-muted">Last Name</th>
+                                    <td>{{ userToDisplay?.userLastName }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-muted">User email</th>
+                                    <td>{{ userToDisplay?.userEmail }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-muted">User role</th>
+                                    <td>{{ userToDisplay?.userRole }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-muted">Date added</th>
+                                    <td>{{ userToDisplay?.createdAt | date: 'mediumDate' }}</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row" class="text-muted">Last updated</th>
+                                    <td>{{ userToDisplay?.updatedAt | date:'mediumDate' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 

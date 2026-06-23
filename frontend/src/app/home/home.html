@@ -1,34 +1,132 @@
-<h1>Welcome to the Jukebox!</h1>
-<div class="flex-container">
-    <h3>Albums</h3>
-        <ul>
-        @for (album of randomAlbums; track album._id) {
-                <li>{{ album.albumName }} - {{ $any(album?.albumArtist)?.artistName }}</li>
-            }
-        </ul>
-    
-        <a routerLink="/view-all-albums">View all albums</a><br>
-        <a routerLink="/add-album">Add new album</a>
+<div class="container mt-4">
 
-    <h3>Songs</h3>
-        <ul>
-            @for (song of randomSongs; track song._id) {
-                <li>{{ song.songTitle }} - {{ $any(song?.songArtist)?.artistName }}</li>
-            }
-        </ul>
-    
-        <a routerLink="/view-all-songs">View all songs</a><br>
-        <a routerLink="/add-song">Add new song</a>
+    <!-- Header -->
+    <div class="p-4 mb-4 bg-dark text-white rounded">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="display-5 fw-bold">Welcome to the Jukebox!</h1>
+                @if (isLoggedIn) {
+                    <p class="mb-0">Logged in as: <strong>{{ currentUserName }}</strong> 
+                        <span class="badge bg-secondary ms-1">{{ currentUserRole }}</span>
+                    </p>
+                } @else {
+                    <p class="mb-0 text-white-50">Please log in to add or edit content</p>
+                }
+            </div>
+            <div>
+                @if (isLoggedIn) {
+                    <button (click)="logout()" class="btn btn-outline-light btn-sm">Logout</button>
+                } @else {
+                    <a routerLink="/login" class="btn btn-light btn-sm">Login</a>
+                }
+            </div>
+        </div>
+    </div>
 
-    <h3>Playlists</h3>
-        <ul>
-            @for (playlist of randomPlaylists; track playlist._id) {
-                <li>{{ playlist.playlistTitle }} - {{ playlist.playlistCreator }}</li>
-            }
-        </ul>
-    
-        <a routerLink="/view-all-playlists">View all playlists</a><br>
-        <a routerLink="/add-playlist">Add new playlist</a>
+    <!-- Content Grid -->
+    <div class="row g-4">
+
+        <!-- Albums Column -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Albums</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @for (album of randomAlbums; track album._id) {
+                            <li class="list-group-item">
+                                <div class="fw-bold">
+                                    <a [routerLink]="['/view-one-album', album._id]" 
+                                       class="text-decoration-none">
+                                        {{ album.albumName }}
+                                    </a>
+                                </div>
+                                <small class="text-muted">{{ $any(album?.albumArtist)?.artistName }}</small>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="card-footer d-flex gap-2">
+                    <a routerLink="/view-all-albums" class="btn btn-outline-dark btn-sm flex-fill">View All</a>
+                    <a routerLink="/add-album" class="btn btn-dark btn-sm flex-fill">+ Add New</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Songs Column -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Songs</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @for (song of randomSongs; track song._id) {
+                            <li class="list-group-item">
+                                <div class="fw-bold">
+                                    <a [routerLink]="['/view-one-song', song._id]"
+                                       class="text-decoration-none">
+                                        {{ song.songTitle }}
+                                    </a>
+                                </div>
+                                <small class="text-muted">{{ $any(song?.songArtist)?.artistName }}</small>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="card-footer d-flex gap-2">
+                    <a routerLink="/view-all-songs" class="btn btn-outline-dark btn-sm flex-fill">View All</a>
+                    <a routerLink="/add-song" class="btn btn-dark btn-sm flex-fill">+ Add New</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Playlists Column -->
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Playlists</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @for (playlist of randomPlaylists; track playlist._id) {
+                            <li class="list-group-item">
+                                <div class="fw-bold">
+                                    <a [routerLink]="['/view-one-playlist', playlist._id]"
+                                       class="text-decoration-none">
+                                        {{ playlist.playlistTitle }}
+                                    </a>
+                                </div>
+                                <small class="text-muted">{{ $any(playlist?.playlistCreator)?.userName }}</small>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="card-footer d-flex gap-2">
+                    <a routerLink="/view-all-playlists" class="btn btn-outline-dark btn-sm flex-fill">View All</a>
+                    <a routerLink="/add-playlist" class="btn btn-dark btn-sm flex-fill">+ Add New</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Quick Navigation Footer -->
+    <div class="row mt-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Quick Navigation</h5>
+                </div>
+                <div class="card-body d-flex flex-wrap gap-2">
+                    <a routerLink="/view-all-artists" class="btn btn-outline-dark btn-sm">View All Artists</a>
+                    <a routerLink="/view-all-users" class="btn btn-outline-dark btn-sm">View All Users</a>
+                    <a routerLink="/add-artist" class="btn btn-dark btn-sm">+ Add Artist</a>
+                    <a routerLink="/add-user" class="btn btn-dark btn-sm">+ Add User</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
-

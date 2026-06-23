@@ -9,6 +9,7 @@ import { ArtistService } from '../../services/artist.service';
 import { Song } from '../../models/song-model';
 import { Album } from '../../models/album-model';
 import { forkJoin } from 'rxjs';
+import { SessionService } from '../../services/session.service';
 
 
 @Component({
@@ -30,9 +31,11 @@ export class AddArtist implements OnInit {
     private songService: SongService,
     private artistService: ArtistService,
     private ngZone: NgZone,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
+
     this.addArtistForm = this.formBuilder.group({
       artistName: ['', Validators.required],
       artistBirthday: [''],

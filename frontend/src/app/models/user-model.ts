@@ -9,7 +9,6 @@ export interface User {
     userPlaylistContributions?: string[];
     userPlaylists?: string[];
     userRole: string;
-    userPassword: string;
     createdAt?: Date;
     updatedAt?: Date;
 }

@@ -1,12 +1,49 @@
-    <h1>{{ songToDisplay?.songTitle }}</h1><button [routerLink]="['/edit-song', songToDisplay?._id]">Edit</button>
-    <button (click)="deleteSong(songToDisplay?._id)">Delete</button>    
-    <br>
-    <h2>Song Title: {{ songToDisplay?.songTitle }}</h2>
-    <h3>Artist: {{ $any(songToDisplay?.songArtist)?.artistName }}</h3>
-    <h4>Release Date: {{ songToDisplay?.songReleaseDate | date:'mediumDate' }}</h4>
-    <h4>On Album(s): {{ $any(songToDisplay?.songAlbum)?.albumName }}</h4>
-    <h4>Song length: {{ songToDisplay?.songTime }}</h4>
-    <h4>Date added: {{ songToDisplay?.createdAt | date: 'mediumDate' }}</h4>
-    <h4>Last updated: {{ songToDisplay?.updatedAt | date:'mediumDate' }}</h4>
-    <br>
+<div class="container mt-4">
 
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">{{ songToDisplay?.songTitle }}</h3>
+            <div class="d-flex gap-2">
+                <button [routerLink]="['/edit-song', songToDisplay?._id]" 
+                    class="btn btn-outline-light btn-sm">Edit Song</button>
+                <button (click)="deleteSong(songToDisplay?._id)" 
+                    class="btn btn-danger btn-sm">Delete Song</button>
+                <a routerLink="/view-all-songs" 
+                    class="btn btn-secondary btn-sm">Back to Songs</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-muted">Song Artist</th>
+                                <td>{{ $any(songToDisplay?.songArtist)?.artistName }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Release Date</th>
+                                <td>{{ songToDisplay?.songReleaseDate | date:'mediumDate' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">On Album(s)</th>
+                                <td>{{ $any(songToDisplay?.songAlbum)?.albumName }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Song length</th>
+                                <td>{{ songToDisplay?.songTime }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Date added</th>
+                                <td>{{ songToDisplay?.createdAt | date: 'mediumDate' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Last updated</th>
+                                <td>{{ songToDisplay?.updatedAt | date:'mediumDate' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+</div>

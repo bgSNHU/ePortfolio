@@ -1,47 +1,68 @@
-<form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Add User</h3>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
 
-  <label for="userName">Username: </label>
-  <input id="userName" type="text" formControlName="userName" />
-  @if(addUserForm?.get('userName')?.invalid && addUserForm?.get('userName')?.touched) {
-    <div class="text-danger">Please enter a Username</div>
-  }
+                    <div class="mb-3">
+                      <label for="userName" class="form-label">Username: </label>
+                      <input id="userName" type="text" class="form-control" formControlName="userName" />
+                      @if(addUserForm?.get('userName')?.invalid && addUserForm?.get('userName')?.touched) {
+                        <div class="text-danger small">Please enter a Username</div>
+                      }
+                    </div>
 
-  <label for="userFirstName">First Name: </label>
-  <input id="userFirstName" type="text" formControlName="userFirstName" />
-  @if(addUserForm?.get('userFirstName')?.invalid && addUserForm?.get('userFirstName')?.touched) {
-    <div class="text-danger">Please enter your first name</div>
-  }
+                    <div class="mb-3">
+                      <label for="userFirstName" class="form-label">First Name: </label>
+                      <input id="userFirstName" type="text" class="form-control" formControlName="userFirstName" />
+                      @if(addUserForm?.get('userFirstName')?.invalid && addUserForm?.get('userFirstName')?.touched) {
+                        <div class="text-danger small">Please enter your first name</div>
+                      }
+                    </div>
 
-  <label for="userLastName">Last Name: </label>
-  <input id="userLastName" type="text" formControlName="userLastName" />
-  @if(addUserForm?.get('userLastName')?.invalid && addUserForm?.get('userLastName')?.touched) {
-    <div class="text-danger">Please enter your last name</div>
-  }
+                    <div class="mb-3">
+                      <label for="userLastName" class="form-label">Last Name: </label>
+                      <input id="userLastName" type="text" class="form-control" formControlName="userLastName" />
+                      @if(addUserForm?.get('userLastName')?.invalid && addUserForm?.get('userLastName')?.touched) {
+                        <div class="text-danger small">Please enter your last name</div>
+                      }
+                    </div>
 
-  <label for="userEmail">Email: </label>
-  <input id="userEmail" type="email" formControlName="userEmail" />
-  @if(addUserForm?.get('userEmail')?.invalid && addUserForm?.get('userEmail')?.touched) {
-    <div class="text-danger">Please enter a valid email address</div>
-  }
+                    <div class="mb-3">
+                      <label for="userEmail" class="form-label">Email: </label>
+                      <input id="userEmail" type="email" class="form-control" formControlName="userEmail" />
+                      @if(addUserForm?.get('userEmail')?.invalid && addUserForm?.get('userEmail')?.touched) {
+                        <div class="text-danger small">Please enter a valid email address</div>
+                      }
+                    </div>
 
-  <label for="userRole">User role: </label>
-  <select id="userRole" formControlName="userRole">
-    <option value="">Select a role</option>
-    <option value="viewer">Viewer</option>
-    <option value="editor">Editor</option>
-    <option value="admin">Admin</option>
-  </select>
-  @if(addUserForm?.get('userRole')?.invalid && addUserForm?.get('userRole')?.touched) {
-    <div class="text-danger">Please select a role</div>
-  }
+                    <div class="mb-3">
+                      <label for="userRole" class="form-label">User role: </label>
+                      <select id="userRole" class="form-select" formControlName="userRole">
+                        <option value="">Select a role</option>
+                        <option value="viewer">Viewer</option>
+                        <option value="editor">Editor</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                      @if(addUserForm?.get('userRole')?.invalid && addUserForm?.get('userRole')?.touched) {
+                        <div class="text-danger small">Please select a role</div>
+                      }
+                    </div>
 
-  <label for="userPassword">Password: </label>
-  <input id="userPassword" type="password" formControlName="userPassword" />
-  @if(addUserForm?.get('userPassword')?.invalid && addUserForm?.get('userPassword')?.touched) {
-    <div class="text-danger">Please enter a valid password</div>
-  }
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a routerLink="/" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <button type="submit">Submit</button>
-  </form>
 
  

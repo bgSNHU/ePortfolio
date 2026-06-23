@@ -10,6 +10,7 @@ import { Album } from '../../models/album-model';
 import { AlbumService } from '../../services/album.service';
 import { forkJoin } from 'rxjs';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-edit-song',
@@ -32,7 +33,8 @@ export class EditSong implements OnInit{
     private confirmDialogService: ConfirmDialogService,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

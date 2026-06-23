@@ -17,7 +17,8 @@ exports.createPlaylist = async (req, res) => {
 exports.getPlaylists = async (req, res) => {
     try {
         const playlists = await Playlist.find()
-        .populate('songs');
+        .populate('songs')
+        .populate('playlistCreator');
         res.json(playlists);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -29,7 +30,8 @@ exports.getOnePlaylist = async (req, res) => {
         const playlist = await Playlist.findById({
             _id: req.params.id,
         })
-        .populate('songs');
+        .populate('songs')
+        .populate('playlistCreator');;
         res.json(playlist);
     } catch (error) {
         res.status(500).json({ message: error.message });

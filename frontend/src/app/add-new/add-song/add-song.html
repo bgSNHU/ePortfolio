@@ -1,38 +1,65 @@
-  <form [formGroup]="addSongForm" (ngSubmit)="onSubmit()">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Add Song</h3>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="addSongForm" (ngSubmit)="onSubmit()">
 
-  <label for="songTitle">Song title: </label>
-  <input id="songTitle" type="text" formControlName="songTitle" />
-  @if(addSongForm?.get('songTitle')?.invalid && addSongForm?.get('songTitle')?.touched) {
-    <div class="text-danger">Please enter a Song title</div>
-  }
+                    <div class="mb-3">
+                      <label for="songTitle" class="form-label">Song title: </label>
+                      <input id="songTitle" type="text" class="form-control" formControlName="songTitle" />
+                      @if(addSongForm?.get('songTitle')?.invalid && addSongForm?.get('songTitle')?.touched) {
+                        <div class="text-danger small">Please enter a Song title</div>
+                      }
+                    </div>
 
-  <label for="songArtist">Artist: </label>
-  <select id="songArtist" formControlName="songArtist">
-    <option value="">Select an artist</option>
-    @for (artist of songArtistDropdown; track artist._id) {
-        <option [value]="artist._id">{{ artist.artistName }}</option>
-    }
-    </select>
-    <a routerLink="/add-artist">+ Add new artist</a>
+                    <div class="mb-3">
+                      <label for="songArtist" class="form-label">Artist: </label>
+                      <select id="songArtist" class="form-select" formControlName="songArtist">
+                        <option value="">Select an artist</option>
+                        @for (artist of songArtistDropdown; track artist._id) {
+                            <option [value]="artist._id">{{ artist.artistName }}</option>
+                        }
+                      </select>
+                      <a routerLink="/add-artist" class="btn btn-link btn-sm ps-0">+ Add new artist</a>
+                    </div>
 
-  <label for="songReleaseDate">Release date: </label>
-  <input type="date" id="songReleaseDate" formControlName="songReleaseDate" />
+                    <div class="mb-3">
+                      <label for="songReleaseDate" class="form-label">Release date: </label>
+                      <input type="date" id="songReleaseDate" class="form-control" formControlName="songReleaseDate" />
+                    </div>
 
-  <label for="songAlbum">Album: </label>
-  <select id="songAlbum" formControlName="songAlbum">
-    <option value="">Select an album</option>
-    @for (album of songAlbumDropdown; track album._id) {
-        <option [value]="album._id">{{ album.albumName }}</option>
-    }
-    </select>
+                    <div class="mb-3">
+                      <label for="songAlbum" class="form-label">Album: </label>
+                      <select id="songAlbum" class="form-select" formControlName="songAlbum">
+                        <option value="">Select an album</option>
+                        @for (album of songAlbumDropdown; track album._id) {
+                            <option [value]="album._id">{{ album.albumName }}</option>
+                        }
+                      </select>
 
-    <a routerLink="/add-album">+ Add new album</a>
+                      <a routerLink="/add-album" class="btn btn-link btn-sm ps-0">+ Add new album</a>
+                    </div>
 
-    <label for="songTime">Song duration (MM:SS): </label>
-    <input type="text" id="songTime" formControlName="songTime" placeholder="3:45"/>
+                    <div class="mb-3">
+                      <label for="songTime" class="form-label">Song duration (MM:SS): </label>
+                      <input type="text" id="songTime" class="form-control" formControlName="songTime" placeholder="3:45"/>
+                    </div>
 
-  <button type="submit">Submit</button>
-</form>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a routerLink="/view-all-songs" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 

@@ -5,6 +5,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,7 +23,8 @@ export class UserDetail implements OnInit{
     private route: ActivatedRoute,
     private confirmDialogService: ConfirmDialogService,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

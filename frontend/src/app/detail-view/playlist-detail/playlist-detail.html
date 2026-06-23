@@ -1,1 +1,74 @@
-<p>playlist-detail works!</p>
+<div class="container mt-4">
+
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">{{ playlistToDisplay?.playlistTitle }}</h3>
+            <div class="d-flex gap-2">
+                <button [routerLink]="['/edit-playlist', playlistToDisplay?._id]"
+                    class="btn btn-outline-light btn-sm">Edit Playlist</button>
+                <button (click)="deletePlaylist(playlistToDisplay?._id)" 
+                    class="btn btn-danger btn-sm">Delete Playlist</button>
+                <a routerLink="/view-all-playlists" 
+                    class="btn btn-secondary btn-sm">Back to Playlists</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-muted">Playlist Title</th>
+                                <td>{{ playlistToDisplay?.playlistTitle }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Added by user</th>
+                                <td>{{playlistToDisplay?.playlistCreator }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Date added</th>
+                                <td>{{ playlistToDisplay?.createdAt | date: 'mediumDate' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Songs on this Playlist</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover align-middle mb-0">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Song Title</th>
+                        <th>Length</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (song of $any(playlistToDisplay?.songs); track song._id) {
+                        <tr>
+                            <td>
+                                <button [routerLink]="['/edit-song', song._id]" 
+                                    class="btn btn-sm btn-outline-primary me-1">Edit</button>
+                                <button (click)="deleteSong(song._id)" 
+                                    class="btn btn-sm btn-outline-danger">Delete</button>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/view-one-song', song._id]" 
+                                    class="text-decoration-none fw-bold">
+                                    {{ song.songTitle }}
+                                </a>
+                            </td>
+                            <td>{{ song.songTime }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

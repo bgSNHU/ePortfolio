@@ -1,27 +1,55 @@
-<form [formGroup]="addPlaylistForm" (ngSubmit)="onSubmit()">
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Add Playlist</h3>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="addPlaylistForm" (ngSubmit)="onSubmit()">
+                    @if (isLoggedIn) {
+                      <p class="mb-0">Logged in as: <strong>{{ currentUser.userName }}</strong> 
+                          <span class="badge bg-secondary ms-1">{{ currentUserRole }}</span>
+                      </p>
+                    } @else {
+                        <p class="mb-0 text-white-50">Please log in to add or edit content</p>
+                    }
 
-  <label for="playlistTitle">Playlist title: </label>
-  <input id="playlistTitle" type="text" formControlName="playlistTitle" />
-  @if(addPlaylistForm?.get('playlistTitle')?.invalid && addPlaylistForm?.get('playlistTitle')?.touched) {
-    <div class="text-danger">Please enter a Playlist title</div>
-  }
+                    <div class="mb-3">
+                      <label for="playlistTitle" class="form-label">Playlist title: </label>
+                      <input id="playlistTitle" type="text" class="form-control" formControlName="playlistTitle" />
+                      @if(addPlaylistForm?.get('playlistTitle')?.invalid && addPlaylistForm?.get('playlistTitle')?.touched) {
+                        <div class="text-danger">Please enter a Playlist title</div>
+                      }
 
-  <label for="songs">Songs: </label>
-  <select formControlName="songs" multiple>
-    <option value="">Select songs</option>
-    @for (song of allSongsDropdown; track song._id) {
-        <option [value]="song._id">{{ song.songTitle }}</option>
-    }
+                      <a routerLink="/add-user" class="btn btn-link btn-sm ps-0">+ Add new user</a>
+                    </div>
 
-    @if(addPlaylistForm?.get('playlistSongs')?.invalid && addPlaylistForm?.get('playlistSongs')?.touched) {
-        <div class="text-danger">Please select or add songs</div>
-    }
-    </select>
+                    <div class="mb-3">
+                      <label for="songs" class="form-label">Songs: </label>
+                      <select id="songs" class="form-select" formControlName="songs" multiple>
+                        <option value="">Select songs</option>
+                        @for (song of allSongsDropdown; track song._id) {
+                            <option [value]="song._id">{{ song.songTitle }}</option>
+                        }
+                        </select>
+                        @if(addPlaylistForm?.get('songs')?.invalid && addPlaylistForm?.get('songs')?.touched) {
+                            <div class="text-danger">Please select or add songs</div>
+                        }
 
-    <a routerLink="/add-song">Add new song</a>
+                        <a routerLink="/add-song" class="btn btn-link btn-sm ps-0">+ Add new song</a>
+                    </div>
 
-  <button type="submit">Submit</button>
-  </form>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a routerLink="/view-all-playlists" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                    </form>
+  </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

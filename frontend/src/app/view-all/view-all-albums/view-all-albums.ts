@@ -6,6 +6,7 @@ import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { DatePipe, AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-view-all-albums',
@@ -21,6 +22,7 @@ export class ViewAllAlbums implements OnInit {
   constructor(
     private albumService: AlbumService,
     private confirmDialogService: ConfirmDialogService,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

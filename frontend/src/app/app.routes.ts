@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth.guard';
 
 // Import home component
 import { Home } from './home/home';
@@ -33,43 +34,46 @@ import { UserDetail } from './detail-view/user-detail/user-detail';
 import { ViewAllUsers } from './view-all/view-all-users/view-all-users';
 import { EditUser } from './edit/edit-user/edit-user';
 
+import { Login } from './login/login';
+
 export const routes: Routes = [
 
+    { path: 'login', component: Login },
     // Home path
     { path: '', component: Home },
 
     // Album paths
-    { path: 'add-album', component: AddAlbum },
+    { path: 'add-album', component: AddAlbum, canActivate: [authGuard] },
     { path: 'view-one-album/:id', component: AlbumDetail },
     { path: 'view-all-albums', component: ViewAllAlbums },
-    { path: 'edit-album/:id', component: EditAlbum },
+    { path: 'edit-album/:id', component: EditAlbum, canActivate: [authGuard] },
 
     //Artist paths
-    { path: 'add-artist', component: AddArtist },
+    { path: 'add-artist', component: AddArtist, canActivate: [authGuard] },
     { path: 'view-one-artist/:id', component: ArtistDetail },
     { path: 'view-all-artists', component: ViewAllArtists },
-    { path: 'edit-artist/:id', component: EditArtist },
+    { path: 'edit-artist/:id', component: EditArtist, canActivate: [authGuard] },
 
 
     // Playlist paths
-    { path: 'add-playlist', component: AddPlaylist },
+    { path: 'add-playlist', component: AddPlaylist, canActivate: [authGuard] },
     { path: 'view-one-playlist/:id', component: PlaylistDetail },
     { path: 'view-all-playlists', component: ViewAllPlaylists },
-    { path: 'edit-playlist/:id', component: EditPlaylist },
+    { path: 'edit-playlist/:id', component: EditPlaylist, canActivate: [authGuard] },
 
 
     // Song paths
-    { path: 'add-song', component: AddSong },
+    { path: 'add-song', component: AddSong, canActivate: [authGuard] },
     { path: 'view-one-song/:id', component: SongDetail },
     { path: 'view-all-songs', component: ViewAllSongs },
-    { path: 'edit-song/:id', component: EditSong },
+    { path: 'edit-song/:id', component: EditSong, canActivate: [authGuard] },
 
 
     // User paths
     { path: 'add-user', component: AddUser },
     { path: 'view-one-user/:id', component: UserDetail },
     { path: 'view-all-users', component: ViewAllUsers },
-    { path: 'edit-user/:id', component: EditUser },
+    { path: 'edit-user/:id', component: EditUser, canActivate: [authGuard] },
 
     // Universal path
     { path: '**', redirectTo: '' },

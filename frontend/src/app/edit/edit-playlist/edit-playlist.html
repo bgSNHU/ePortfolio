@@ -1,1 +1,44 @@
-<p>edit-playlist works!</p>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Edit Playlist</h3>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="editPlaylistForm" (ngSubmit)="onSubmit()">
+
+                    <div class="mb-3">
+                      <label for="playlistTitle" class="form-label">Playlist title: </label>
+                      <input id="playlistTitle" type="text" class="form-control" formControlName="playlistTitle" />
+                      @if(editPlaylistForm?.get('playlistTitle')?.invalid && editPlaylistForm?.get('playlistTitle')?.touched) {
+                        <div class="text-danger small">Please enter an Playlist name</div>
+                      }
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="songs" class="form-label">Songs: </label>
+                      <small class="text-muted ms-2">(Hold Ctrl/Cmd to select multiple)</small>
+                      <select id="songs" class="form-select" formControlName="songs" multiple>
+                        <option value="">Select songs</option>
+                        @for (song of songsDropdown; track song._id) {
+                            <option [value]="song._id">{{ song.songTitle }}</option>
+                        }
+                        </select>
+                        @if(editPlaylistForm?.get('songs')?.invalid && editPlaylistForm?.get('songs')?.touched) {
+                            <div class="text-danger small">Please select or add songs</div>
+                        }
+
+                        <a routerLink="/add-song" class="btn btn-link btn-sm ps-o">Add new song</a>
+                      </div>
+
+                      <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a routerLink="/view-all-playlists" class="btn btn-outline-secondary">Cancel</a>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

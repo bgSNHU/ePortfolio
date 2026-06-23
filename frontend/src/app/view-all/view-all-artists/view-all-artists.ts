@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Artist } from '../../models/artist-model';
 import { ArtistService } from '../../services/artist.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-view-all-artists',
@@ -21,6 +22,7 @@ export class ViewAllArtists  implements OnInit {
   constructor(
     private artistService: ArtistService,
     private confirmDialogService: ConfirmDialogService,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

@@ -1,42 +1,69 @@
-<form [formGroup]="editSongForm" (ngSubmit)="onSubmit()">
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Edit Song</h3>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="editSongForm" (ngSubmit)="onSubmit()">
 
-  <label for="songTitle">Song Title: </label>
-  <input id="songTitle" type="text" formControlName="songTitle" />
-  @if(editSongForm?.get('songTitle')?.invalid && editSongForm?.get('songTitle')?.touched) {
-    <div class="text-danger">Please enter a Song name</div>
-  }
+                    <div class="mb-3">
+                      <label for="songTitle"class="form-label">Song Title: </label>
+                      <input id="songTitle" type="text" class="form-control" formControlName="songTitle" />
+                      @if(editSongForm?.get('songTitle')?.invalid && editSongForm?.get('songTitle')?.touched) {
+                        <div class="text-danger small">Please enter a Song name</div>
+                      }
+                    </div>
 
-  <label for="songReleaseDate">Release date: </label>
-  <input type="date" id="songReleaseDate" formControlName="songReleaseDate" />
+                    <div class="mb-3">
+                      <label for="songReleaseDate" class="form-label">Release date: </label>
+                      <input type="date" id="songReleaseDate" class="form-control" formControlName="songReleaseDate" />
+                    </div>
 
-  <label for="songArtist">Artist: </label>
-  <select id="songArtist" formControlName="songArtist">
-    <option value="">Select artist</option>
-    @for (artist of artistsToDisplay; track artist._id) {
-        <option [value]="artist._id">{{ artist.artistName }}</option>
-    }
-    </select>
-    @if(editSongForm?.get('songArtist')?.invalid && editSongForm?.get('songArtist')?.touched) {
-        <div class="text-danger">Please select or add artist</div>
-    }
+                    <div class="mb-3">
+                      <label for="songArtist" class="form-label">Artist: </label>
+                      <select id="songArtist" class="form-select" formControlName="songArtist">
+                        <option value="">Select artist</option>
+                        @for (artist of artistsToDisplay; track artist._id) {
+                            <option [value]="artist._id">{{ artist.artistName }}</option>
+                        }
+                        </select>
+                        @if(editSongForm?.get('songArtist')?.invalid && editSongForm?.get('songArtist')?.touched) {
+                            <div class="text-danger small">Please select or add artist</div>
+                        }
 
-    <a routerLink="/add-artist">Add new artist</a>
+                        <a routerLink="/add-artist" class="btn btn-link btn-sm ps-0">+ Add new artist</a>
+                      </div>
 
-    <label for="songAlbum">Albums: </label>
-  <select id="songAlbum" formControlName="songAlbum" multiple>
-    <option value="">Select Albums</option>
-    @for (album of albumsToDisplay; track album._id) {
-        <option [value]="album._id">{{ album.albumName }}</option>
-    }
-    </select>
-    @if(editSongForm?.get('songAlbum')?.invalid && editSongForm?.get('songAlbum')?.touched) {
-        <div class="text-danger">Please select or add albums</div>
-    }
+                      <div class="mb-3">
+                        <label for="songAlbum" class="form-label">Albums: </label>
+                        <small class="text-muted ms-2">(Hold Ctrl/Cmd to select multiple)</small>
+                        <select id="songAlbum" class="form-select" formControlName="songAlbum" multiple>
+                        <option value="">Select Albums</option>
+                        @for (album of albumsToDisplay; track album._id) {
+                            <option [value]="album._id">{{ album.albumName }}</option>
+                        }
+                        </select>
+                        @if(editSongForm?.get('songAlbum')?.invalid && editSongForm?.get('songAlbum')?.touched) {
+                            <div class="text-danger small">Please select or add albums</div>
+                        }
 
-    <a routerLink="/add-album">Add new album</a>
+                        <a routerLink="/add-album" class="btn btn-link btn-sm ps-0">+ Add new album</a>
+                      </div>
 
-    <label for="songTime">Song duration (MM:SS): </label>
-    <input type="text" id="songTime" formControlName="songTime" placeholder="3:45"/>
+                      <div class="mb-3">
+                        <label for="songTime" class="form-label">Song duration (MM:SS): </label>
+                        <input type="text" id="songTime" class="form-control" formControlName="songTime" placeholder="3:45"/>
+                      </div>
 
-  <button type="submit">Submit</button>
-  </form>
+                    <div class="d-flex gap-2">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                      <a routerLink="/view-all-songs" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

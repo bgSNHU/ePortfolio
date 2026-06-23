@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-add-user',
@@ -18,6 +19,7 @@ export class AddUser implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private router: Router,
+    public sessionService: SessionService
   ){}
 
   ngOnInit(): void {

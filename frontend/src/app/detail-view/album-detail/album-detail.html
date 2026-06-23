@@ -1,32 +1,79 @@
-<!--@if (isLoading) {
-    <p>Loading...</p>
-} @else {-->
-    <h1>{{ albumToDisplay?.albumName }}</h1><button [routerLink]="['/edit-album', albumToDisplay?._id]">Edit</button>
-    <br>
-    <h2>Album Title: {{ albumToDisplay?.albumName }}</h2>
-    <h3>Artist: {{ $any(albumToDisplay?.albumArtist)?.artistName }}</h3>
-    <h4>Release Date: {{ albumToDisplay?.albumReleaseDate | date:'mediumDate' }}</h4>
-    <h4>Genre: {{ albumToDisplay?.albumGenre }}</h4>
-    <h4>Added by user: {{albumToDisplay?.userAdded }}</h4>
-    <h4>Date added: {{ albumToDisplay?.createdAt | date: 'mediumDate' }}</h4>
-    <br>
+<div class="container mt-4">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Song title</th>
-                <th>Length</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (song of $any(albumToDisplay?.albumSongs); track song._id) {
-                <tr>
-                    <td><button [routerLink]="['/edit-song', song._id]">Edit</button>
-                        <button (click)="deleteSong(song._id)">Delete</button>
-                    </td>
-                    <td>{{ song.songTitle }}</td>
-                    <td>{{ song.songTime }}</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">{{ albumToDisplay?.albumName }}</h3>
+            <div class="d-flex gap-2">
+                <button [routerLink]="['/edit-album', albumToDisplay?._id]" 
+                    class="btn btn-outline-light btn-sm">Edit Album</button>
+                <button (click)="deleteAlbum(albumToDisplay?._id)" 
+                    class="btn btn-danger btn-sm">Delete Album</button>
+                <a routerLink="/view-all-albums" 
+                    class="btn btn-secondary btn-sm">Back to Albums</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="text-muted">Artist</th>
+                                <td>{{ $any(albumToDisplay?.albumArtist)?.artistName }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Genre</th>
+                                <td>{{ albumToDisplay?.albumGenre }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Release Date</th>
+                                <td>{{ albumToDisplay?.albumReleaseDate | date:'mediumDate' }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row" class="text-muted">Date Added</th>
+                                <td>{{ albumToDisplay?.createdAt | date:'mediumDate' }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Songs on this Album</h5>
+            <a routerLink="/add-song" class="btn btn-outline-light btn-sm">+ Add New Song</a>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover align-middle mb-0">
+                <thead class="table-secondary">
+                    <tr>
+                        <th>Song Title</th>
+                        <th>Length</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (song of $any(albumToDisplay?.albumSongs); track song._id) {
+                        <tr>
+                            <td>
+                                <button [routerLink]="['/edit-song', song._id]" 
+                                    class="btn btn-sm btn-outline-primary me-1">Edit</button>
+                                <button (click)="deleteSong(song._id)" 
+                                    class="btn btn-sm btn-outline-danger">Delete</button>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/view-one-song', song._id]" 
+                                    class="text-decoration-none fw-bold">
+                                    {{ song.songTitle }}
+                                </a>
+                            </td>
+                            <td>{{ song.songTime }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>

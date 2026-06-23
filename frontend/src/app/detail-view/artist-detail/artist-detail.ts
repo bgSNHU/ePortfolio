@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import { Album } from '../../models/album-model';
 import { AlbumService } from '../../services/album.service';
 import { forkJoin } from 'rxjs';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-artist-detail',
@@ -30,7 +31,8 @@ export class ArtistDetail implements OnInit{
     private confirmDialogService: ConfirmDialogService,
     private cdr: ChangeDetectorRef,
     private albumService: AlbumService,
-    private router: Router
+    private router: Router,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

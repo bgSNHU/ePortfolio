@@ -4,13 +4,27 @@ const mongoose = require('mongoose');   // Imports Mongoose for MongoDB interact
 const cors = require('cors');           // Imports CORS middleware to allow frontend to make requests to backend
 const dotenv = require('dotenv');       // Imports dotenv to load environment variables from .env file
 const connectDB = require('./config/db');
+const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 
 dotenv.config();
 const app = express();      //Instantiates Express
 const PORT = process.env.PORT || 3000;
 
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 1000,
+    message: 'Too many requests, please try again later.'
+});
+
 app.use(express.json());    //Parses JSON
-app.use(cors());            //Enables CORS for all routes   
+//app.use(cors());            //Enables CORS for all routes   
+app.use(limiter);
+app.use(helmet());
+app.use(cors({
+    origin: 'http://localhost:4200',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+}));
 
 // Routes //
 const albumRoutes = require('./routes/album.routes');

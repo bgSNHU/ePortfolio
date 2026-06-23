@@ -10,6 +10,7 @@ import { Song } from '../../models/song-model';
 import { Artist } from '../../models/artist-model';
 import { Album } from '../../models/album-model';
 import { forkJoin } from 'rxjs';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-edit-album',
@@ -31,7 +32,8 @@ export class EditAlbum implements OnInit{
     private songService: SongService,
     private artistService: ArtistService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {

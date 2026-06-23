@@ -9,7 +9,7 @@ const albumSchema = new mongoose.Schema({
         type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Song' }],
         default: []
     },
-    userAdded: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    userAddedAlbum: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 }, {
     collection: 'Albums',
     timestamps: true

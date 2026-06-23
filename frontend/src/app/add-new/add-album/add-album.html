@@ -1,54 +1,81 @@
-<form [formGroup]="addAlbumForm" (ngSubmit)="onSubmit()">
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h3 class="mb-0">Add Album</h3>
+                </div>
+                <div class="card-body">
+                  <form [formGroup]="addAlbumForm" (ngSubmit)="onSubmit()">
 
-  <label for="albumName">Album name: </label>
-  <input id="albumName" type="text" formControlName="albumName" />
-  @if(addAlbumForm?.get('albumName')?.invalid && addAlbumForm?.get('albumName')?.touched) {
-    <div class="text-danger">Please enter an Album name</div>
-  }
+                    <div class="mb-3">
+                      <label for="albumName" class="form-label">Album name: </label>
+                      <input id="albumName" type="text" class="form-control" formControlName="albumName" />
+                      @if(addAlbumForm?.get('albumName')?.invalid && addAlbumForm?.get('albumName')?.touched) {
+                        <div class="text-danger small">Please enter an Album name</div>
+                      }
+                    </div>
 
-  <label for="albumArtist">Artist: </label>
-  <select formControlName="albumArtist">
-    <option value="">Select artist</option>
-    @for (artist of albumArtistDropdown; track artist._id) {
-        <option [value]="artist._id">{{ artist.artistName }}</option>
-    }
+                    <div class="mb-3">
+                      <label for="albumArtist" class="form-label">Artist: </label>
+                      <select id="albumArtist" class="form-select" formControlName="albumArtist">
+                        <option value="">Select artist</option>
+                        @for (artist of albumArtistDropdown; track artist._id) {
+                            <option [value]="artist._id">{{ artist.artistName }}</option>
+                        }
 
-    @if(addAlbumForm?.get('albumArtist')?.invalid && addAlbumForm?.get('albumArtist')?.touched) {
-        <div class="text-danger">Please select or add the album artist</div>
-    }
-    </select>
+                        @if(addAlbumForm?.get('albumArtist')?.invalid && addAlbumForm?.get('albumArtist')?.touched) {
+                            <div class="text-danger small">Please select or add the album artist</div>
+                        }
+                        </select>
 
-    <a routerLink="/add-artist">Add new artist</a>
+                        <a routerLink="/add-artist" class="btn btn-link btn-sm ps-0">+ Add new artist</a>
+                      </div>
 
-  <label for="albumReleaseDate">Release date: </label>
-  <input type="date" id="albumReleaseDate" formControlName="albumReleaseDate" />
+                    <div class="mb-3">
+                      <label for="albumReleaseDate" class="form-label">Release date: </label>
+                      <input type="date" id="albumReleaseDate" class="form-control" formControlName="albumReleaseDate" />
+                    </div>
 
-  <label for="albumGenre">Genre:  </label>
-  <select id="albumGenre" formControlName="albumGenre">
-    <option value="">Select a genre</option>
-    <option value="pop">Pop</option>
-    <option value="rock">Rock</option>
-    <option value="classical">Classical</option>
-    <option value="edm">EDM</option>
-    <option value="country">Country</option>
-  </select>
+                    <div class="mb-3">
+                      <label for="albumGenre" class="form-label">Genre:  </label>
+                      <select id="albumGenre" class="form-select" formControlName="albumGenre">
+                        <option value="">Select a genre</option>
+                        <option value="pop">Pop</option>
+                        <option value="rock">Rock</option>
+                        <option value="classical">Classical</option>
+                        <option value="edm">EDM</option>
+                        <option value="country">Country</option>
+                      </select>
+                    </div>
 
-  <label for="albumSongs">Songs: </label>
-  <select formControlName="albumSongs" multiple>
-    <option value="">Select songs</option>
-    @for (song of albumSongsDropdown; track song._id) {
-        <option [value]="song._id">{{ song.songTitle }}</option>
-    }
+                    <div class="mb-3">
+                      <label for="albumSongs" class="form-label">Songs: </label>
+                      <small class="text-muted ms-2">(Hold Ctrl/Cmd to select multiple)</small>
+                      <select id="albumSongs" class="form-select" formControlName="albumSongs" multiple>
+                        <option value="">Select songs</option>
+                        @for (song of albumSongsDropdown; track song._id) {
+                            <option [value]="song._id">{{ song.songTitle }}</option>
+                        }
 
-    @if(addAlbumForm?.get('albumSongs')?.invalid && addAlbumForm?.get('albumSongs')?.touched) {
-        <div class="text-danger">Please select or add songs</div>
-    }
-    </select>
+                        @if(addAlbumForm?.get('albumSongs')?.invalid && addAlbumForm?.get('albumSongs')?.touched) {
+                            <div class="text-danger small">Please select or add songs</div>
+                        }
+                        </select>
 
-    <a routerLink="/add-song">Add new song</a>
+                        <a routerLink="/add-song" class="btn btn-link btn-sm ps-0">+ Add new song</a>
+                    </div>
 
-  <button type="submit">Submit</button>
-  </form>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <a routerLink="/view-all-albums" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

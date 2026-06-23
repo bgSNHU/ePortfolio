@@ -1,31 +1,77 @@
-    <h1>{{ artistToDisplay?.artistName }}</h1><button [routerLink]="['/edit-artist', artistToDisplay?._id]">Edit</button>
-    <br>
-    <h2>Artist Name: {{ artistToDisplay?.artistName }}</h2>
-    <h3>Birthday: {{ artistToDisplay?.artistBirthday | date:'mediumDate' }}</h3>
-    <h4>Added by user: {{artistToDisplay?.userAddedAlbum }}</h4>
-    <h4>Date added: {{ artistToDisplay?.createdAt | date: 'mediumDate' }}</h4>
-    <br>
+<div class="container mt-4">
 
-    <h3><u>Songs by {{ artistToDisplay?.artistName }}</u></h3>
-    <table>
-        <thead>
-            <tr>
-                <th></th>
-                <th>Song title</th>
-                <th>Length</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (song of songsToDisplay; track song._id) {
-                <tr>
-                    <td>
-                        <button [routerLink]="['/edit-song', song._id]">Edit</button>
-                        <button (click)="deleteSong(song._id)">Delete</button>
-                    </td>
-                    <td>{{ song.songTitle }}</td>
-                    <td>{{ song.songTime }}</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">{{ artistToDisplay?.artistName }}</h3>
+            <button [routerLink]="['/edit-artist', artistToDisplay?._id]"
+            class="btn btn-outline-light btn-sm">Edit Artist</button>
+            <button (click)="deleteArtist(artistToDisplay?._id)" 
+                    class="btn btn-danger btn-sm">Delete Artist</button>
+                <a routerLink="/view-all-artists" 
+                    class="btn btn-secondary btn-sm">Back to Artists</a>
+            </div>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th scope="row" class="text-muted">Artist</th>
+                            <td>{{ artistToDisplay?.artistName }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-muted">Birthday</th>
+                            <td>{{ artistToDisplay?.artistBirthday | date:'mediumDate' }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-muted">Added by user</th>
+                            <td>{{artistToDisplay?.userAddedAlbum }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="text-muted">Date added</th>
+                            <td>{{ artistToDisplay?.createdAt | date: 'mediumDate' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Songs by {{ artistToDisplay?.artistName }}</h5>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover align-middle mb-0">
+                <thead class="table-secondary">
+                    <tr>
+                        <th></th>
+                        <th>Song Title</th>
+                        <th>Length</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (song of songsToDisplay; track song._id) {
+                        <tr>
+                            <td>
+                                <button [routerLink]="['/edit-song', song._id]"
+                                class="btn btn-sm btn-outline-primary me-1">Edit</button>
+                                <button (click)="deleteSong(song._id)"
+                                class="btn btn-sm btn-outline-danger">Delete</button>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/view-one-song', song._id]" 
+                                class="text-decoration-none fw-bold">
+                                {{ song.songTitle }}
+                                </a>
+                            </td>
+                            <td>{{ song.songTime }}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 

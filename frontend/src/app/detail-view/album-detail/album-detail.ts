@@ -6,6 +6,7 @@ import { SongService } from '../../services/song.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { DatePipe } from '@angular/common';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-album-detail',
@@ -25,7 +26,8 @@ export class AlbumDetail implements OnInit {
     private songService: SongService,
     private route: ActivatedRoute,
     private confirmDialogService: ConfirmDialogService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
