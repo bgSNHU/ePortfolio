@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { DatePipe, AsyncPipe } from '@angular/common';
@@ -22,7 +22,8 @@ export class ViewAllUsers implements OnInit {
   constructor(
     private userService: UserService,
     private confirmDialogService: ConfirmDialogService,
-    public sessionService: SessionService
+    public sessionService: SessionService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class ViewAllUsers implements OnInit {
         next: () => {
           this.allUsers = this.allUsers.filter(user => user._id !== id);
           this.allUsers$ = new Observable(observer => observer.next(this.allUsers));
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error deleting user:', err);

@@ -84,13 +84,15 @@ export class ArtistDetail implements OnInit{
     }
   }
 
-  deleteArtist(id: string): void {
+  deleteArtist(id: string | undefined): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {
       this.artistService.deleteArtist(id).subscribe({
         next: () => {
           alert('Artist deleted');
           this.router.navigate(['/view-all-artists']);
+        }, error: (err) => {
+          console.error('Error deleting artist', err);
         }
       })
     }

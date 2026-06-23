@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AlbumService } from '../../services/album.service';
 import { Album } from '../../models/album-model';
 import { RouterLink } from '@angular/router';
@@ -22,7 +22,8 @@ export class ViewAllAlbums implements OnInit {
   constructor(
     private albumService: AlbumService,
     private confirmDialogService: ConfirmDialogService,
-    public sessionService: SessionService
+    public sessionService: SessionService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class ViewAllAlbums implements OnInit {
         next: () => {
           this.allAlbums = this.allAlbums.filter(album => album._id !== id);
           this.allAlbums$ = new Observable(observer => observer.next(this.allAlbums));
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error deleting album:', err);

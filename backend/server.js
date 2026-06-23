@@ -18,7 +18,6 @@ const limiter = rateLimit({
 });
 
 app.use(express.json());    //Parses JSON
-//app.use(cors());            //Enables CORS for all routes   
 app.use(limiter);
 app.use(helmet());
 app.use(cors({

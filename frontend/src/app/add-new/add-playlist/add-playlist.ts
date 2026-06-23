@@ -21,6 +21,9 @@ export class AddPlaylist implements OnInit{
   allSongsDropdown: Song [] = [];
   allUsersDropdown: User[] = [];
   currentUserRole: string = '';
+  isLoggedIn: boolean = false;
+  currentUser: User | null = null;
+  currentUserName: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,12 +35,16 @@ export class AddPlaylist implements OnInit{
 
   ngOnInit(): void {
 
-    const currentUser = this.sessionService.getUser(); 
+    this.isLoggedIn = this.sessionService.isLoggedIn();
+    this.currentUser = this.sessionService.getUser();
+    if (this.currentUser !== null) {
+      this.currentUserName =  this.currentUser?.userName;
+    };
     this.currentUserRole = this.sessionService.getUser()?.userRole || '';
 
     this.addPlaylistForm = this.formBuilder.group({
       playlistTitle: ['', Validators.required],
-      playlistCreator: [currentUser?._id || '', Validators.required],
+      playlistCreator: [this.currentUser?._id || '', Validators.required],
       songs: [[], Validators.required],
     });
 

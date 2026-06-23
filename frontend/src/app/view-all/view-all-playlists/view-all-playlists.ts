@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AlbumService } from '../../services/album.service';
 import { Playlist } from '../../models/playlist-model';
 import { Router, RouterLink } from '@angular/router';
@@ -24,7 +24,8 @@ export class ViewAllPlaylists implements OnInit {
   constructor(
     private playlistService: PlaylistService,
     private confirmDialogService: ConfirmDialogService,
-    public sessionService: SessionService
+    public sessionService: SessionService,
+    private cdr: ChangeDetectorRef
   ){}
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class ViewAllPlaylists implements OnInit {
         next: () => {
           this.allPlaylists = this.allPlaylists.filter(playlist => playlist._id !== id);
           this.allPlaylists$ = new Observable(observer => observer.next(this.allPlaylists));
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error deleting playkist:', err);

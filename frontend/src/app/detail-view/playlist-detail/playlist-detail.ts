@@ -43,13 +43,15 @@ export class PlaylistDetail implements OnInit{
       }
   }
 
-  deletePlaylist(id: string): void {
+  deletePlaylist(id: string | undefined): void {
     if(!id) return;
     if(this.confirmDialogService.confirmDelete()) {
       this.playlistService.deletePlaylist(id).subscribe({
         next: () => {
           alert('Playlist successfully deleted');
           this.router.navigate(['/view-all-playlists']);
+        }, error: (err) => {
+          console.error('Error deleting playlist', err);
         }
       })
     }

@@ -3,7 +3,7 @@ import { Album } from '../../models/album-model';
 import { AlbumService } from '../../services/album.service';
 import { Song } from '../../models/song-model';
 import { SongService } from '../../services/song.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { DatePipe } from '@angular/common';
 import { SessionService } from '../../services/session.service';
@@ -27,7 +27,8 @@ export class AlbumDetail implements OnInit {
     private route: ActivatedRoute,
     private confirmDialogService: ConfirmDialogService,
     private cdr: ChangeDetectorRef,
-    public sessionService: SessionService
+    public sessionService: SessionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +54,20 @@ export class AlbumDetail implements OnInit {
       this.songService.deleteSong(id).subscribe({
         next: () => {
           this.songsToDisplay = this.songsToDisplay.filter(song => song._id !== id);
+        }
+      })
+    }
+  }
+
+  deleteAlbum(id: string | undefined): void {
+    if(!id) return;
+    if (this.confirmDialogService.confirmDelete()) {
+      this.albumService.deleteAlbum(id).subscribe({
+        next: () => {
+          alert('Album successfully deleted');
+          this.router.navigate(['/view-all-albums']);
+        }, error: (err) => {
+          console.error('Error deleting album:', err);
         }
       })
     }

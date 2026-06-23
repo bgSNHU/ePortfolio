@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ConfirmDialogService } from '../../services/confirm-dialog.service';
 import { DatePipe, AsyncPipe } from '@angular/common';
@@ -22,7 +22,8 @@ export class ViewAllArtists  implements OnInit {
   constructor(
     private artistService: ArtistService,
     private confirmDialogService: ConfirmDialogService,
-    public sessionService: SessionService
+    public sessionService: SessionService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +39,7 @@ export class ViewAllArtists  implements OnInit {
         next: () => {
           this.allArtists = this.allArtists.filter(artist => artist._id !== id);
           this.allArtists$ = new Observable(observer => observer.next(this.allArtists));
+          this.cdr.detectChanges();
         },
         error: (err) => {
           console.error('Error deleting artist:', err);

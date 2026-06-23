@@ -29,12 +29,12 @@ export class AddUser implements OnInit {
         userLastName: ['', Validators.required],
         userEmail: ['', [Validators.required, Validators.email]],
         userRole: ['', Validators.required],
-        userPassword: ['', Validators.required]
       })
   }
 
   onSubmit() {
     if (this.addUserForm.valid) {
+      console.log('onSbmit triggered');
       this.userService.addNewUser(this.addUserForm.value).subscribe({
         next: () => {
           alert('User added successfully!');

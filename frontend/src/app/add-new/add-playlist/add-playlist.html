@@ -8,7 +8,7 @@
                 <div class="card-body">
                   <form [formGroup]="addPlaylistForm" (ngSubmit)="onSubmit()">
                     @if (isLoggedIn) {
-                      <p class="mb-0">Logged in as: <strong>{{ currentUser.userName }}</strong> 
+                      <p class="mb-0">Logged in as: <strong>{{ currentUserName }}</strong> 
                           <span class="badge bg-secondary ms-1">{{ currentUserRole }}</span>
                       </p>
                     } @else {

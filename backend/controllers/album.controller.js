@@ -1,20 +1,19 @@
 const Album = require('../models/album.model');
 const mongoose = require('mongoose');
 
+// CRUD functions for albums //
+
 exports.createAlbum = async (req, res) => {
     try {
-        console.log('Request body: ', req.body);
         const albumData = { ...req.body };
 
+        // Deletes any empty, optional variables before creating database record //
         if (!albumData.albumReleaseDate) delete albumData.albumReleaseDate;
         if (!albumData.albumGenre) delete albumData.albumGenre;
         if (!albumData.albumSongs) delete albumData.albumSongs;
         if (!albumData.userAdded) delete albumData.userAdded;
 
-        console.log('Final albumData before create: ', albumData);
-
         const album = await Album.create(albumData);
-        console.log('Created album: ', album);
         res.status(201).json(album);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -24,20 +23,20 @@ exports.createAlbum = async (req, res) => {
 exports.getAlbums = async (req, res) => {
     try {
         const albums = await Album.find()
-        .populate('albumArtist')
-        .populate('albumSongs');
+        .populate('albumArtist')      // Populate's albumArtist value from ObjectId
+        .populate('albumSongs');      // Populate's albumSongs value from ObjectId
         res.json(albums);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
+// Allows all artist's albums to be found and displayed on Artist's profile page //
 exports.getAlbumsbyArtist = async (req, res) => {
     try {
         const artistAlbums = await Album.find({
             albumArtist: req.params.id,
         });
-        console.log('AlbumsByArtist successful: ', artistAlbums);
         res.json(artistAlbums);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -60,9 +59,9 @@ exports.updateAlbum = async (req, res) => {
         const album = await Album.findByIdAndUpdate({
             _id: req.params.id
         }, {
-            $set: req.body
+            $set: req.body      // Only updates modified fields
         }, {
-            new: true
+            new: true           // Returns new document
         });
         res.json(album);
     } catch (error) {
