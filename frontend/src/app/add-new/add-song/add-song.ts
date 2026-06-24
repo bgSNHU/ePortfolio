@@ -19,12 +19,15 @@ import { SessionService } from '../../services/session.service';
   styleUrl: './add-song.css',
 })
 export class AddSong implements OnInit{
+
+  // Create & initialize class variables
   addSongForm: FormGroup = new FormGroup({});
   songArtistDropdown: Artist[] = [];
   songAlbumDropdown: Album[] = [];
   successMessage: string = '';
   errorMessage: string = '';
 
+  // Instantiate services & imports
   constructor(
     private formBuilder: FormBuilder,
     private albumService: AlbumService,
@@ -38,6 +41,7 @@ export class AddSong implements OnInit{
 
   ngOnInit(): void {
 
+    // Create form for new Song entry
     this.addSongForm = this.formBuilder.group({
       songTitle: ['', Validators.required],
       songArtist: ['', Validators.required],
@@ -46,14 +50,16 @@ export class AddSong implements OnInit{
       songTime: ['']
     });
 
+    // forkJoin gets albums and artists concurrently
     forkJoin({
       albums: this.albumService.getAllAlbums(),
       artists: this.artistService.getAllArtists()
-    }).subscribe ({
+    }).subscribe ({               // Subscribe needed to get info from service file calls
       next: (results) => {
         this.ngZone.run(() => {
           this.songAlbumDropdown = results.albums;
           this.songArtistDropdown = results.artists;
+          this.cdr.detectChanges();
         });
       }, error: (err) => {
         console.error('Error loading data: ', err);
@@ -61,11 +67,7 @@ export class AddSong implements OnInit{
     })
   }
 
-  testMessage() {
-    this.successMessage = 'Test message!';
-    console.log('successMessage set to:', this.successMessage);
-}
-
+  // Passes new song info to backend controller
   onSubmit() {
     if (this.addSongForm.valid) {
       this.songService.addNewSong(this.addSongForm.value).subscribe({

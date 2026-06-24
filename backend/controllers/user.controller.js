@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const User = require('../models/user.model');
 
+// CRUD functions for User //
+
 exports.createUser = async (req, res) => {
     try {
         const userData = { ...req.body };
 
+        // Deletes any empty, optional variables before creating database record //
         if (!userData.userSongContributions) delete userData.userSongContributions;
         if (!userData.userArtistContributions) delete userData.userArtistContributions;
         if (!userData.userPlaylistContributions) delete userData.userPlaylistContributions;
@@ -42,9 +45,9 @@ exports.updateUser = async (req, res) => {
         const user = await User.findByIdAndUpdate({
             _id: req.params.id
         }, {
-            $set: req.body
+            $set: req.body              // Only updates modified fields
         }, {
-            new: true
+            new: true                   // Returns updated document
         });
         res.json(user);
     } catch (error) {

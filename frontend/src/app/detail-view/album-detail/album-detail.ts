@@ -16,11 +16,13 @@ import { SessionService } from '../../services/session.service';
 })
 export class AlbumDetail implements OnInit {
 
+  // Create & initialize class variables
   albumToDisplay: Album | null = null;
   songsToDisplay: Song[] = [];
   albumAddedDate: Date | null = null;
   isLoading: boolean = true;
 
+  // Instantiate services & imports
   constructor(
     private albumService: AlbumService,
     private songService: SongService,
@@ -32,13 +34,13 @@ export class AlbumDetail implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {   
-        this.albumService.getOneAlbum(id).subscribe({
+    const id = this.route.snapshot.paramMap.get('id');    // Gets record's ObjectId from URL
+    if (id) {                                             // Checks ObjectId is present
+        this.albumService.getOneAlbum(id).subscribe({     // Gets a single album record using ObjectId
         next: (album) => {
             this.albumToDisplay = album;
-            this.isLoading = false;
-            this.cdr.detectChanges();
+            this.isLoading = false;                       // Used to display loading screen in HTML file
+            this.cdr.detectChanges();                     // Triggers page refresh
       },
       error: (err) => {
         console.error('Error loading album:', err);
@@ -48,6 +50,7 @@ export class AlbumDetail implements OnInit {
     }
   }
 
+  // Calls 'delete confirmation' service & passes song ObjectId to backend controller to delete song
   deleteSong(id: string): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {
@@ -59,6 +62,7 @@ export class AlbumDetail implements OnInit {
     }
   }
 
+  // Calls 'delete confirmation' service & passes album ObjectId to backend controller to delete album
   deleteAlbum(id: string | undefined): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {

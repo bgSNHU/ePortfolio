@@ -35,22 +35,22 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this.sessionService.isLoggedIn();
-    this.currentUserName = this.sessionService.getUser()?.userName || '';
-    this.currentUserRole = this.sessionService.getUser()?.userRole || '';
+    this.isLoggedIn = this.sessionService.isLoggedIn();                     // Checks if user is logged in
+    this.currentUserName = this.sessionService.getUser()?.userName || '';   // Gets username of logged in person
+    this.currentUserRole = this.sessionService.getUser()?.userRole || '';   // Gets role of current user
     this.cdr.detectChanges();
 
-    forkJoin({
+    forkJoin({                                                              // Gets all albums, songs, and playlists concurrently
       albums: this.albumService.getAllAlbums(),
       songs: this.songService.getAllSongs(),
       playlists: this.playlistService.getAllPlaylists()
       }).subscribe({
-        next: (results) => {
-          this.randomAlbums = results.albums.sort(() => 0.5 - Math.random()).slice(0, 5);
-          this.randomSongs = results.songs.sort(() => 0.5 - Math.random()).slice(0, 5);
-          this.randomPlaylists = results.playlists.sort(() => 0.5 - Math.random()).slice(0, 5);
+        next: (results) => { 
+          this.randomAlbums = results.albums.sort(() => 0.5 - Math.random()).slice(0, 5);         // Filters all albums to 5 random selections
+          this.randomSongs = results.songs.sort(() => 0.5 - Math.random()).slice(0, 5);           // Filters all songs to 5 random selections
+          this.randomPlaylists = results.playlists.sort(() => 0.5 - Math.random()).slice(0, 5);   // Filters all playlists to 5 random selections
           this.isLoading = false;
-          this.cdr.detectChanges();
+          this.cdr.detectChanges();                                                               // Triggers page refresh
         },
     error: (err) => {
       console.error('Error loading data:', err);
@@ -59,6 +59,7 @@ export class Home implements OnInit {
   });
   }
 
+  // Calls session service to logout current user
   logout() {
     this.sessionService.logout();
     this.isLoggedIn = false;

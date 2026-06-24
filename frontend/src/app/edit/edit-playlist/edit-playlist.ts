@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
@@ -32,7 +32,6 @@ export class EditPlaylist implements OnInit{
     private router: Router,
     private songService: SongService,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
     private confirmDialogService: ConfirmDialogService,
     private userService: UserService,
     public sessionService: SessionService

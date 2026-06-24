@@ -34,10 +34,10 @@ export class Login implements OnInit {
   }
 
   onLogin() {
-    const user = this.usersDropdown.find(u => u._id === this.selectedUserId);
+    const user = this.usersDropdown.find(u => u._id === this.selectedUserId);   // Finds user by id within usersDropdown, which is an array containing all users
     if (user) {
-      this.sessionService.setUser(user);
-      this.router.navigate(['/']);
+      this.sessionService.setUser(user);                                        // Stores current user in local storage
+      this.router.navigate(['/']);                                              // Redirects home
     }
   }
 }

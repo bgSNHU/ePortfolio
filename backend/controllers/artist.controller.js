@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const Artist = require('../models/artist.model');
 
+// CRUD functions for Artist //
+
 exports.createArtist = async (req, res) => {
     try {
         const artistData = { ...req.body };
 
+        // Deletes any empty, optional variables before creating database record //
         if (!artistData.artistBirthday) delete artistData.artistBirthday;
         if (!artistData.artistSongs) delete artistData.artistSongs;
         if (!artistData.artistAlbums) delete artistData.artistAlbums;
@@ -42,9 +45,9 @@ exports.updateArtist = async (req, res) => {
         const artist = await Artist.findByIdAndUpdate({
             _id: req.params.id
         }, {
-            $set: req.body
+            $set: req.body          // Only updates modified fields
         }, {
-            new: true
+            new: true               // Returns updated document
         });
         res.json(artist);
     } catch (error) {

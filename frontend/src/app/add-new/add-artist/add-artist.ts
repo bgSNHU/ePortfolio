@@ -20,10 +20,12 @@ import { SessionService } from '../../services/session.service';
 })
 export class AddArtist implements OnInit {
   
+  // Create and initialize class variables
   addArtistForm: FormGroup = new FormGroup({});
   artistSongsDropdown: Song[] = [];
   artistAlbumsDropdown: Album[] = [];
 
+  // Instantiate services & imports
   constructor(
     private formBuilder: FormBuilder,
     private albumService: AlbumService,
@@ -36,6 +38,7 @@ export class AddArtist implements OnInit {
 
   ngOnInit(): void {
 
+    // Creates form for new Artist entry
     this.addArtistForm = this.formBuilder.group({
       artistName: ['', Validators.required],
       artistBirthday: [''],
@@ -43,10 +46,11 @@ export class AddArtist implements OnInit {
       artistAlbums: [[]],
     });
 
+    // forkJoin gets songs and albums concurrently
     forkJoin({
       songs: this.songService.getAllSongs(),
       albums: this.albumService.getAllAlbums()
-    }).subscribe ({
+    }).subscribe ({                 // Subscribe needed to retrieve info from call to service files
       next: (results) => {
         this.ngZone.run(() => {
           this.artistSongsDropdown = results.songs;
@@ -58,12 +62,13 @@ export class AddArtist implements OnInit {
     })
   }
 
+  // Passes new Artist info from form to Backend controller
   onSubmit() {
     if (this.addArtistForm.valid) {
       this.artistService.addNewArtist(this.addArtistForm.value).subscribe({
         next: () => {
-          alert('Artist added successfully!');
-          this.router.navigate(['/view-all-artists']);
+          alert('Artist added successfully!');          // User notified of success
+          this.router.navigate(['/view-all-artists']);  // Navigates back to page to view all artists
         }, error: (err) => {
           console.error('Error adding artist: ', err);
         }

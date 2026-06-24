@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const Playlist = require('../models/playlist.model');
 
+// CRUD functions for Playlist //
+
 exports.createPlaylist = async (req, res) => {
     try {
         const playlistData = { ...req.body };
 
+        // Deletes any empty, optional variables before creating database record //
         if (!playlistData.playlistCreationDate) delete playlistData.playlistCreationDate;
 
         const playlist = await Playlist.create(playlistData);
@@ -17,8 +20,8 @@ exports.createPlaylist = async (req, res) => {
 exports.getPlaylists = async (req, res) => {
     try {
         const playlists = await Playlist.find()
-        .populate('songs')
-        .populate('playlistCreator');
+        .populate('songs')                      // Generates 'songs' variable from ObjectIds
+        .populate('playlistCreator');           // Generates 'playlistCreator' variable from ObjectIds
         res.json(playlists);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -43,9 +46,9 @@ exports.updatePlaylist = async (req, res) => {
         const playlist = await Playlist.findByIdAndUpdate({
             _id: req.params.id
         }, {
-            $set: req.body
+            $set: req.body          // Only updates modified fields
         }, {
-            new: true
+            new: true               // Returns updated document
         });
         res.json(playlist);
     } catch (error) {

@@ -59,15 +59,16 @@ export class EditAlbum implements OnInit{
           this.artistsDropdown = results.artists;
           this.cdr.detectChanges();
 
+          // Inserts current values into editAlbumForm
           this.editAlbumForm.patchValue({
             albumName: results.album.albumName,
             albumArtist: typeof results.album.albumArtist === 'object'
-            ? (results.album.albumArtist as any)._id: results.album.albumArtist,
+            ? (results.album.albumArtist as any)._id: results.album.albumArtist,      // Parses artistName from ObjectId reference
             albumReleaseDate: results.album.albumReleaseDate
-            ? new Date(results.album.albumReleaseDate).toISOString().split('T')[0]
+            ? new Date(results.album.albumReleaseDate).toISOString().split('T')[0]    // Parses date
             : '',
             albumGenre: results.album.albumGenre,
-            albumSongs: Array.isArray(results.album.albumSongs)
+            albumSongs: Array.isArray(results.album.albumSongs)                       // Parses song data drom ObjectId reference, then pre-selects songs in dropdown
             ? results.album.albumSongs.map((song: any) =>
             typeof song === 'object' ? song._id : song
           ) : []
@@ -77,6 +78,7 @@ export class EditAlbum implements OnInit{
     }
   }
 
+  // Checks form is valid, passes data to controller to update album
   onSubmit() {
     if (this.editAlbumForm.valid && this.albumToDisplay !== null) {
       this.albumService.updateAlbum(this.albumToDisplay._id, this.editAlbumForm.value).subscribe({

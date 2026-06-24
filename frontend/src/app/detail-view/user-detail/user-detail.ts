@@ -15,9 +15,11 @@ import { SessionService } from '../../services/session.service';
 })
 export class UserDetail implements OnInit{
   
+  // Create & initialize class variables
   userToDisplay: User | null = null;
   isLoading: boolean = true;
 
+  // Instantiate services & imports
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
@@ -28,14 +30,13 @@ export class UserDetail implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {   
-        this.userService.getOneUser(id).subscribe({
+    const id = this.route.snapshot.paramMap.get('id');  // Gets ObjectId from URL
+    if (id) {                                           // Checks if ObjectId is present
+        this.userService.getOneUser(id).subscribe({     // Calls user service to get a single User
         next: (user) => {
             this.userToDisplay = user;
-            this.isLoading = false;
-            this.cdr.detectChanges();
-            console.log(user);
+            this.isLoading = false;                     // Used to display loading screen in HTML file
+            this.cdr.detectChanges();                   // Triggers page refresh
       },
       error: (err) => {
         console.error('Error loading user:', err);
@@ -45,6 +46,7 @@ export class UserDetail implements OnInit{
     }
   }
 
+  // Calls delete confirmation service then passes user info to backend controller to delete user
   deleteUser(id: string | undefined): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {

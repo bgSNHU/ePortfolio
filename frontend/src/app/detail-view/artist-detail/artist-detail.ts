@@ -19,11 +19,13 @@ import { SessionService } from '../../services/session.service';
 })
 export class ArtistDetail implements OnInit{
 
+  // Create & initialize class varaibles
   artistToDisplay: Artist | null = null;
   songsToDisplay: Song[] = [];
   albumsToDisplay: Album[] = [];
   isLoading: boolean = true;
 
+  // Instantiate services & imports
   constructor(
     private artistService: ArtistService,
     private songService: SongService,
@@ -36,23 +38,19 @@ export class ArtistDetail implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      console.log(id);
-      forkJoin ({   
+    const id = this.route.snapshot.paramMap.get('id');            // Gets ObjectId from URL
+    if (id) {                                                     // Checks if ObjectId is present
+      forkJoin ({                                                 // Gets artist, albums, and songs concurrently
         artist: this.artistService.getOneArtist(id),
         albums: this.albumService.getAlbumsByArtist(id),
         songs: this.songService.getSongsByArtist(id),
       }).subscribe({
         next: (results) => {
             this.artistToDisplay = results.artist;
-            console.log('Artist retrieved: ', results.artist);
             this.songsToDisplay = results.songs;
-            console.log('Songs retrieved: ', results.songs);
             this.albumsToDisplay = results.albums;
-            console.log('Albums retrieved: ', results.albums);
-            this.isLoading = false;
-            this.cdr.detectChanges();
+            this.isLoading = false;                               // Used to display loading screen in HTML file
+            this.cdr.detectChanges();                             // Trigger page refresh
       },
       error: (err) => {
         console.error('Error loading artist:', err);
@@ -62,6 +60,7 @@ export class ArtistDetail implements OnInit{
     }
   }
 
+  // Calls delete confirmation service, then passes song id to backend controller to delete song
   deleteSong(id: string): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {
@@ -73,6 +72,7 @@ export class ArtistDetail implements OnInit{
     }
   }
 
+  // Calls delete confirmation service, then passes song id to backend controller to delete album
   deleteAlbum(id: string): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {

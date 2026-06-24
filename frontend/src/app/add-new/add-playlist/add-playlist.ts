@@ -17,6 +17,8 @@ import { SessionService } from '../../services/session.service';
 })
 
 export class AddPlaylist implements OnInit{
+
+  // Create and intialize class variables
   addPlaylistForm: FormGroup = new FormGroup({});
   allSongsDropdown: Song [] = [];
   allUsersDropdown: User[] = [];
@@ -25,6 +27,7 @@ export class AddPlaylist implements OnInit{
   currentUser: User | null = null;
   currentUserName: string = '';
 
+  // Initialize services & imports
   constructor(
     private formBuilder: FormBuilder,
     private songService: SongService,
@@ -35,6 +38,7 @@ export class AddPlaylist implements OnInit{
 
   ngOnInit(): void {
 
+    // Gets info about current user logged in
     this.isLoggedIn = this.sessionService.isLoggedIn();
     this.currentUser = this.sessionService.getUser();
     if (this.currentUser !== null) {
@@ -42,12 +46,14 @@ export class AddPlaylist implements OnInit{
     };
     this.currentUserRole = this.sessionService.getUser()?.userRole || '';
 
+    // Create form for new Playlist entry
     this.addPlaylistForm = this.formBuilder.group({
       playlistTitle: ['', Validators.required],
       playlistCreator: [this.currentUser?._id || '', Validators.required],
       songs: [[], Validators.required],
     });
 
+    // Call and subscribe to service call to retrieve all songs
     this.songService.getAllSongs().subscribe({
       next: (songs) => {
           this.allSongsDropdown = songs;
@@ -57,6 +63,7 @@ export class AddPlaylist implements OnInit{
     })
   }
 
+  // Passes new Playlist info to backend controller
   onSubmit() {
     if (this.addPlaylistForm.valid) {
       console.log('Form value: ', this.addPlaylistForm.value);

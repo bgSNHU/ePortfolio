@@ -4,23 +4,24 @@ const mongoose = require('mongoose');   // Imports Mongoose for MongoDB interact
 const cors = require('cors');           // Imports CORS middleware to allow frontend to make requests to backend
 const dotenv = require('dotenv');       // Imports dotenv to load environment variables from .env file
 const connectDB = require('./config/db');
-const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');    // Imports Express rate limiter to defend against attacks using repeated requests
+const helmet = require('helmet');               // Imports Helmet to use secure HTTP headers
 
-dotenv.config();
-const app = express();      //Instantiates Express
+dotenv.config();            // Processes dotenv file for use (safeguarding credentials & secrets)
+const app = express();      // Instantiates Express
 const PORT = process.env.PORT || 3000;
 
+// Sets max allowed attempts within time limit
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 1000,
+    max: 100,
     message: 'Too many requests, please try again later.'
 });
 
-app.use(express.json());    //Parses JSON
-app.use(limiter);
-app.use(helmet());
-app.use(cors({
+app.use(express.json());    // Parses JSON
+app.use(limiter);           // Uses rate limits set above
+app.use(helmet());          // Uses secure HTTP headers
+app.use(cors({              // Only allows requests from frontend, reducing capability for CORS attacks
     origin: 'http://localhost:4200',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }));

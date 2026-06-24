@@ -49,7 +49,6 @@ export class EditArtist implements OnInit{
     });
 
     if (id) {
-      console.log(id);
       forkJoin ({   
         artist: this.artistService.getOneArtist(id),
         albums: this.albumService.getAlbumsByArtist(id),
@@ -67,7 +66,7 @@ export class EditArtist implements OnInit{
               artistBirthday: results.artist.artistBirthday
               ? new Date(results.artist.artistBirthday).toISOString().split('T')[0]
               : '',
-              artistSongs: Array.isArray(results.songs)
+              artistSongs: Array.isArray(results.songs)         // Pre-selects songs in dropdown
             ? results.songs.map((song: any) =>
             typeof song === 'object' ? song._id : song
           ) : [],

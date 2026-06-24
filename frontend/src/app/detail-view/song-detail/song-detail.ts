@@ -15,9 +15,11 @@ import { SessionService } from '../../services/session.service';
 })
 export class SongDetail implements OnInit{
   
+  // Create & intitialize class variables
   songToDisplay: Song | null = null;
   isLoading: boolean = true;
 
+  // Instantiate services & imports
   constructor(
     private songService: SongService,
     private route: ActivatedRoute,
@@ -28,14 +30,13 @@ export class SongDetail implements OnInit{
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {   
-        this.songService.getOneSong(id).subscribe({
+    const id = this.route.snapshot.paramMap.get('id');  // Gets ObjectId from URL
+    if (id) {                                           // Checks if ObjectID is present
+        this.songService.getOneSong(id).subscribe({     // Calls song service to get one song
         next: (song) => {
             this.songToDisplay = song;
-            this.isLoading = false;
-            this.cdr.detectChanges();
-            console.log(song);
+            this.isLoading = false;                     // Used to display loading screen in HTML file
+            this.cdr.detectChanges();                   // Triggers page refresh
       },
       error: (err) => {
         console.error('Error loading song:', err);
@@ -45,6 +46,7 @@ export class SongDetail implements OnInit{
     }
   }
 
+  // Calls delete confirmation service then passes song info to controller to delete song
   deleteSong(id: string | undefined): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {

@@ -13,8 +13,11 @@ import { SessionService } from '../../services/session.service';
   styleUrl: './add-user.css',
 })
 export class AddUser implements OnInit {
+
+  // Create & initialize class variable
   addUserForm: FormGroup = new FormGroup({});
 
+  // Instantiate services & imports
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -23,6 +26,8 @@ export class AddUser implements OnInit {
   ){}
 
   ngOnInit(): void {
+
+    // Create form for new User entry
       this.addUserForm = this.formBuilder.group({
         userName: ['', Validators.required],
         userFirstName: ['', Validators.required],
@@ -32,6 +37,7 @@ export class AddUser implements OnInit {
       })
   }
 
+  // Passes new user info to backend controller
   onSubmit() {
     if (this.addUserForm.valid) {
       console.log('onSbmit triggered');

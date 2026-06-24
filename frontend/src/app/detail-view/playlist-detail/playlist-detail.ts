@@ -15,9 +15,11 @@ import { SessionService } from '../../services/session.service';
 })
 export class PlaylistDetail implements OnInit{
 
+  // Create & initialize class variables
   playlistToDisplay: Playlist | null = null;
   playlistSongCount: String = '';
   
+  // Instantiate services & imports
   constructor(
     private playlistService: PlaylistService,
     private route: ActivatedRoute,
@@ -29,10 +31,10 @@ export class PlaylistDetail implements OnInit{
   ) {}
 
   ngOnInit(): void {
-      const id = this.route.snapshot.paramMap.get('id');
+      const id = this.route.snapshot.paramMap.get('id');      // Gets ObjectId from URL
 
-      if(id) {
-        this.playlistService.getOnePlaylist(id).subscribe({
+      if(id) {                                                // Checks if ObjectId is present
+        this.playlistService.getOnePlaylist(id).subscribe({   // Calls playlist service to get a single playlist
           next: (playlist) => {
             this.playlistToDisplay = playlist;
             this.cdr.detectChanges();
@@ -43,6 +45,7 @@ export class PlaylistDetail implements OnInit{
       }
   }
 
+  // Calls delete confirmation service then passes playlist id to controller to delete playlist
   deletePlaylist(id: string | undefined): void {
     if(!id) return;
     if(this.confirmDialogService.confirmDelete()) {
@@ -57,6 +60,7 @@ export class PlaylistDetail implements OnInit{
     }
   }
 
+  // Calls delete confirmation service then passes song id to controller to delete song
   deleteSong(id: string): void {
     if(!id) return;
     if (this.confirmDialogService.confirmDelete()) {

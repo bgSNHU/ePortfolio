@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
 const Song = require('../models/song.model');
 
+// CRUD functions for Song //
+
 exports.createSong = async (req, res) => {
     try {
         const songData = { ...req.body };
 
+        // Deletes any empty, optional variables before creating database record //
         if (!songData.songAlbum) delete songData.songAlbum;
         if (!songData.songReleaseDate) delete songData.songReleaseDate;
         if (!songData.userAddedSong) delete songData.userAddedSong;
@@ -20,8 +23,8 @@ exports.createSong = async (req, res) => {
 exports.getSongs = async (req, res) => {
     try {
         const songs = await Song.find()
-        .populate('songArtist')
-        .populate('songAlbum');
+        .populate('songArtist')                 // Generates 'songArtist' from ObjectId
+        .populate('songAlbum');                 // Generates 'songAlbum' from ObjectId
         res.json(songs);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -46,7 +49,7 @@ exports.getSongsByArtist = async (req, res) => {
         const artistSongs = await Song.find({
             songArtist: req.params.id,
         })
-        .populate('songTitle');
+        .populate('songTitle');                    // Generates 'songTitle' from ObjectId
         res.json(artistSongs);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -67,14 +70,13 @@ exports.getOneSong = async (req, res) => {
 };
 
 exports.updateSong = async (req, res) => {
-    console.log('updateSong triggered at controller.');
     try {
         const song = await Song.findByIdAndUpdate({
             _id: req.params.id
         }, {
-            $set: req.body
+            $set: req.body                  // Only updates modified fields
         }, {
-            new: true
+            new: true                       // Returns updated document
         });
         res.json(song);
     } catch (error) {
