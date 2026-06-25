@@ -501,7 +501,10 @@
             playlist by name and the playlist would be displayed to the user.
             The program was created in February 2026 and modified over the
             following weeks. 
-            <br><br>
+            <br>
+            <a class="code-link m-3" href="jukebox2026_original.zip" target="_blank"
+              >View original codebase</a>
+            <br>
             I chose this artifact because it presented many
             opportunities for improvement. First, I had the opportunity to take
             the C++ program and convert it into JavaScript. Also, the current
@@ -515,9 +518,11 @@
             created a database, and developed the frontend components.
           </p>
 
-          <a class="code-link" href="https://github.com/bgSNHU/ePortfolio" target="_blank"
-            >View codebase</a
-          >
+          <div class="inline"
+            
+            <a class="code-link" href="https://github.com/bgSNHU/ePortfolio" target="_blank"
+              >View enhanced codebase</a>
+          </div>
 
           <!-- Narrative cards -->
           <h6 class="pt-4">Narratives</h6>
@@ -531,11 +536,69 @@
                 </p>
                 <a
                   class="narrative-link"
-                  href="Milestone two narrative.docx"
+                  data-toggle="collapse"
+                  href="#MilestoneTwoNarrative"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="MilestoneTwoNarrative"
                   target="_blank"
                 >Read narrative</a>
               </div>
             </div>
+
+            <div class="collapse" id="MilestoneTwoNarrative">
+              <div class="card-body">
+                The artifact I’m enhancing is from a previous course in 
+                my Computer Science program at SNHU. The course was CS 
+                310 – Collaboration and Team project. The assignment 
+                was a partially completed jukebox-style program, 
+                written in C++. The program stored information about 
+                songs, artists, students, and playlists. The user could 
+                search for a playlist by name and the playlist would be 
+                displayed to the user. The program was created in 
+                February 2026 and modified over the following weeks. 
+                
+                I chose this artifact because it presented many opportunities for 
+                improvement. First, I had the opportunity to take 
+                the C++ program and convert it into JavaScript. Also, 
+                the current functionality was extremely limited, and 
+                the data was hardcoded into the program files. Additionally, 
+                the program was only able to run on a local machine. There 
+                was no connectivity to the web or other users. These 
+                opportunities left me wanting to turn this program into a 
+                full stack web application. Turning this into a full stack 
+                web application takes a variety of skills across many 
+                different frameworks. I will have to develop backend 
+                functionality, database creation and communication, frontend 
+                development, and web development. These skills are highly 
+                desirable across the software development industry today. 
+                Not only will I be able to develop full stack applications, 
+                but once complete, I will also be able to specialize in a 
+                specific development role if needed. I would say I’m well on 
+                my way to meeting the course outcomes. I spent this week 
+                heavily researching MEAN stack best practices, JavaScript, 
+                HTML, and CSS. During that time, I found many great resources 
+                to learn these development techniques, as well as reflected 
+                upon my previous coursework. The combination of previous 
+                practice and deeper research has led to a more thorough 
+                understanding of the frameworks behind a full stack application 
+                and software design. This week’s work took a fair amount of 
+                reading tutorials. As this is the first time I’ve truly created 
+                a full stack application from scratch, there is a lot I needed 
+                to brush up on. I was able to find some extremely helpful resources 
+                for developing a MEAN stack application. These reminded me of 
+                foundational concepts and also taught me new ones. By slowly 
+                building each core piece of the program and slowly connecting them, 
+                I was able to more clearly see how the application works, and how 
+                the data flows. The most challenging thing I faced this week was 
+                creating the program structure. Since my application uses many 
+                different frameworks, the program must be structured appropriately. 
+                This took many tutorials and many re-workings of the work I had 
+                already completed. I do believe that I now have a strong foundation 
+                to continue building the application in the coming weeks. 
+              </div>
+            </div>
+
 
             <div class="col-12 col-md-4">
               <div class="narrative-card">
@@ -547,11 +610,30 @@
                 </p>
                 <a
                   class="narrative-link"
-                  href="Milestone three narrative.docx"
+                  data-toggle="collapse"
+                  href="#MilestoneThreeNarrative"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="MilestoneThreeNarrative"
                   target="_blank"
                 >Read narrative</a>
               </div>
             </div>
+
+            <div class="collapse" id="MilestoneThreeNarrative">
+              <div class="card-body">
+                Work progressed this week on enhancing a previous class project. The original project was a jukebox-style program. It was written in C++, and stored information about students, songs, artists, and playlists. The functionality was limited in the original program. With room for improvement, as well as the opportunity to transition this program to a fullstack web application, this program was a good choice for improvement. 
+Up to this point, the main focus of building the new application was setting up the program structure. I separated the backend and frontend code into separate folders within the application, making it easier to develop and debug. Within the backend folder, separate files were created for database creation, server configuration, models, controllers, and routes. The frontend folder contains individual angular components for all the different views and pages within the finished application. There are also models, routes, and services within the frontend. With the basic structure built, I began writing the logic for the program to function. 
+I viewed many more tutorials this week, as well as reviewing documentation for Angular, MongoDB, and Express. I began developing the backend functions first, since this is what everything else in the program will need to function. Throughout this week’s development, I began to see how the different components of the application communicate with each other. 
+My research helped me determine the best order in which to develop the program. Starting with the most important piece of the application, the server, I used Express documentation to figure out how & which libraries to import (express, mongoose, cors, dotenv) as well as configure the server. I then configured the database connection using a guide from MongoDB and mongoose. This file uses my database connection string, which is secretly stored in a .env file. The database connection file also catches any errors that may arise when connecting. 
+With the server and database configured, I could begin building the structures for my data. Using mongoose, I was able to create schema for each document type in my program. These schema define the structure & types of data for each item within the program (songs, artists, albums, etc.). Mongoose uses these files when creating and manipulating data within MongoDB. 
+Once I had the blueprint for my data, I could begin building the functions that would manipulate the data using CRUD operations. This logic is in a controller file. Each controller has functions to create an item, get a single item, update an item, or delete an item. I made sure to wrap each function in a try/catch block, in order to handle any errors. I learned a lot about asynchronous functions during this development, since JavaScript uses this to ensure that data can always keep flowing and there aren’t bottlenecks. Finally, I added routes to my backend folder. These simple functions use Express’ built-in router function to take a url, and direct the data to the appropriate place (in this case, the controller files). 
+The frontend is similar to the backend, in that it also contains routes, models, and controllers (called services in the frontend). Just like the backend, the models define the data structure of documents in the database. The service files contain the functions for CRUD operations. These take data, use the route files to communicate with the backend, and receive data in return. Additionally, there are Angular component files for every web page on the application. These files take html, CSS, and Javascript commands in order to display data in an interactive web page. 
+Progressing to this stage has taught me a lot about a fullstack program. I am more able to clearly see how all the components talk to each other. Developing the functionality also required me to develop appropriate functions. I used the HTTPClient on the backend, to send HTTP requests to the frontend. I used mongoose commands to interact with the MongoDB database, and I used TypeScript and HTML to display interactive web pages. There is still a lot more to develop, but the program so far is at least partially functional. In the coming weeks, this functionality will be expanded and styling will be implemented to create an aesthetically pleasing program.
+              </div>
+            </div>
+ 
+
 
             <div class="col-12 col-md-4">
               <div class="narrative-card">
@@ -564,11 +646,30 @@
                 </p>
                 <a
                   class="narrative-link"
-                  href="Milestone four narrative.docx"
+                  data-toggle="collapse"
+                  href="#MilestoneFourNarrative"
+                  role="button"
+                  aria-expanded="false"
+                  aria-controls="MilestoneFourNarrative"
                   target="_blank"
                 >Read narrative</a>
               </div>
             </div>
+
+            <div class="collapse" id="MilestoneThreeNarrative">
+              <div class="card-body">
+                Work continued this week on my Jukebox project. This project came from a previous SNHU course, Collaboration & Team project. The original program was written in C++. It contained hardcoded data about students, songs, artists, and playlists. Using a simple search menu, users could find other user’s playlists; but only if they typed in the exact string name.
+I have been working to expand the program functionality and convert it into a fullstack web application, using the MEAN framework. The file structure of the application is complete, and I have been working on completing the logic that will let the program function as intended. The further along I get in this project, the more I understand how important it is to fully plan out a program’s structure. I have had to redo a lot of work, multiple times, because of oversight about how a dataset is structured. 
+Most of the rework has been with the database documentation. As I was building the logic, I realized that I needed to use ObjectId references within the MongoDB data, so other objects could reference them. For example, when building the page to add an album, the user could simply type in the Artist name, but this presented a few problems. One, this could lead to many duplicate Artists, when there should only be one. 
+If a user types in “The Beatles” for an album they add, and another user adds “The beatles” now there are two artist documents when the intention was only to have one. Validation could have been added, but this would only complicate the codebase. Instead, I refactored the “Album” model in my program to contain reference to an ObjectId which I also added to the “Artist” models. This makes sure that users can select from pre-existing data in the database and reduce errors or duplicates. I refactored nearly every model within my database to include ObjectIds, to make it easy to cross-reference. 
+Additionally, I learned this week that there is a safer, more efficient ways to build my TypeScript interfaces for my models. Currently, I am manually writing the TypeScript model components to match the JavaScript models in my backend. This has the potential to introduce errors if there is a missing or incorrect field. I came across a built-in Mongoose feature called “InferSchemaType”. This function will automatically build the TypeScript interface by using the backend models. This can lead to much faster development and greatly reduce the chance for errors. I only just learned about this, so I have yet to implement it. But I plan to use this feature in my final program. 
+While this week has taught me more about MongoDB databases and structures, I have also gained more experience with Postman. I used this program in a previous class but using it more often when developing this program has helped me to understand how to use it when testing routes within a program. I have used it to update data, delete data, and add data to my database. 
+I have also had to learn how to modify large files to push to GitHub. I ended up having to put my Oracle JDK package into my .gitignore file. This was the largest file and it made my project exceed the limits for a GitHub repository. Once I didn’t push that file, I was able to upload my project to GitHub. I made sure to update the README to tell users that they need to download the JDK 26 package before running the program. 
+This coming week will continue progress towards building the functionality of the program. I have many pages working now, and the next step once all pages are working, will be to style them. I plan to use the Bootstrap library, as this will make development faster, while still making a visually appealing site. 
+              </div>
+            </div>
+
+                
           </div>
         </div>
       </section>
