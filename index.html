@@ -1,38 +1,576 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Jukebox</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="/frontend/public/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<body>
-  <app-root>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary rounded" aria-label="Navbar">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span> 
-        </button> 
-      <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11"> 
-        <a class="navbar-brand col-lg-3 me-0" href="#">Centered nav</a> 
-        <ul class="navbar-nav col-lg-6 justify-content-lg-center"> 
-          <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Home</a> </li> 
-          <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li> 
-          <li class="nav-item"> <a class="nav-link disabled" aria-disabled="true">Disabled</a> </li>
-          <li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a> 
-            <ul class="dropdown-menu"> <li><a class="dropdown-item" href="#">Action</a></li> 
-              <li><a class="dropdown-item" href="#">Another action</a></li> 
-              <li><a class="dropdown-item" href="#">Something else here</a></li> 
-            </ul> 
-          </li> 
-        </ul> 
-        <div class="d-lg-flex col-lg-3 justify-content-lg-end"> <button class="btn btn-primary">Button</button> 
-        </div> 
-      </div> 
-      </div> 
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brandon G. | CS-499 ePortfolio</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --brand-dark: #0c1f3f;
+        --brand-mid: #183560;
+        --brand-accent: #1d9e75;
+        --brand-accent-light: #e1f5ee;
+      }
+
+      /* Navbar */
+      .navbar {
+        background-color: var(--brand-dark) !important;
+      }
+      .navbar-brand,
+      .nav-link {
+        color: rgba(255, 255, 255, 0.85) !important;
+      }
+      .nav-link:hover {
+        color: #fff !important;
+      }
+
+      /*  Hero  */
+      .hero {
+        background-color: var(--brand-mid);
+        color: #fff;
+        padding: 4rem 1.5rem;
+      }
+      .hero-photo {
+        width: 140px;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 4px solid var(--brand-accent);
+        flex-shrink: 0;
+      }
+      .hero h1 {
+        font-size: 2rem;
+        font-weight: 500;
+      }
+      .hero p.subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.95rem;
+      }
+
+      /* Section headings */
+      .section-heading {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--brand-dark);
+        border-bottom: 2px solid var(--brand-accent);
+        padding-bottom: 4px;
+        margin-bottom: 1.25rem;
+      }
+
+      /* Self-assessment */
+      .skills-card {
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 1.5rem 1.75rem;
+        line-height: 1.85;
+      }
+
+      /* Code review */
+      .review-card {
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 1.25rem 1.5rem;
+      }
+      .btn-watch {
+        background-color: var(--brand-accent);
+        color: #fff;
+        border: none;
+        font-size: 0.85rem;
+        padding: 7px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+      .btn-watch:hover {
+        background-color: #177a5a;
+        color: #fff;
+      }
+
+      /* Artifact card */
+      .artifact-outer {
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 12px;
+        padding: 1.5rem 1.75rem;
+      }
+      .artifact-outer h3 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+      .artifact-source {
+        font-size: 0.82rem;
+        color: #6c757d;
+        margin-bottom: 1rem;
+      }
+      .artifact-desc {
+        font-size: 0.9rem;
+        color: #444;
+        line-height: 1.7;
+        margin-bottom: 1.25rem;
+      }
+      .code-link {
+        font-size: 0.83rem;
+        color: var(--brand-accent);
+        text-decoration: none;
+        border: 1px solid var(--brand-accent);
+        padding: 5px 14px;
+        border-radius: 20px;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition:
+          background 0.15s,
+          color 0.15s;
+      }
+      .code-link:hover {
+        background: var(--brand-accent);
+        color: #fff;
+      }
+
+      /* Narrative cards */
+      .narrative-card {
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 1rem 1.25rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .narrative-card h4 {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin: 0;
+      }
+      .narrative-card p {
+        font-size: 0.8rem;
+        color: #6c757d;
+        line-height: 1.6;
+        flex: 1;
+        margin: 0;
+      }
+      .narrative-link {
+        font-size: 0.75rem;
+        color: var(--brand-accent);
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-top: auto;
+      }
+      .narrative-link:hover {
+        text-decoration: underline;
+      }
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md sticky-top">
+      <div class="container">
+        <span class="navbar-brand fw-medium"
+          >Brandon G. - ePortfolio</span
+        >
+        <button
+          class="navbar-toggler border-secondary"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navMenu"
+          aria-controls="navMenu"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#review">Code Review</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#artifact">Artifact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
-  </app-root>
-</body>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+          <img
+            src="Guenther-headshot.png"
+            alt="Photo of Brandon G."
+            class="hero-photo"
+          />
+
+          <div>
+            <h1 class="mt-1 mb-1">Brandon G.</h1>
+            <p class="subtitle mb-0">
+              Computer Science - Bachelor of Science<br />
+              Southern New Hampshire University
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container py-5">
+      <!-- Professional Self-Assessment -->
+      <section id="about" class="mb-5">
+        <h2 class="section-heading">My Skills & Abilities</h2>
+        <div class="skills-card">
+          <h5>Skills development</h5>
+          <p>
+            This final project of my degree program has allowed me to practice,
+            hone, and prove my abilities as a software developer. This project
+            began from previous coursework in my program. In CS 310 –
+            Collaboration and Team Project, we partially developed a C++ program
+            that stored student, song, artist, and album information. The
+            program worked as a jukebox, storing and retrieving song
+            information. The original project was of a simple design and had
+            opportunities for improvement. I decided to convert this original
+            project into a fullstack web-based application.
+          </p>
+          <p>
+            Converting this original program into a fullstack application not
+            only let me develop my current skills, but it also let me learn more
+            about JavaScript, TypeScript, CSS, HTML, and MongoDB. While most of
+            these topics were covered in previous coursework, the practical
+            implementation was rather limited.
+          </p>
+          <p>
+            Throughout this application development, I gained valuable
+            experience in team collaboration, stakeholder communication, data
+            structures and algorithms, software engineering, and secure coding.
+            In previous courses, as well as in this program development, I have
+            learned to use Version Control Systems, like GitHub, in order to
+            store, track, and maintain progress throughout development. During
+            the original application development, I used GitHub to work
+            alongside my classmates on the same project. Each of us contributed
+            to the overall program, while being able to monitor and review each
+            other’s work through GitHub.
+          </p>
+          <p>
+            Throughout development of the current application, I completed a
+            series of narratives. These narratives described my weekly progress,
+            challenges, and outcomes. These narratives were written with a wide
+            range of readers in mind; some of which may be non-technical. My
+            writing style was modified, to make sure the information was still
+            conveyed and received appropriately, even by non-technical readers.
+          </p>
+          <p>
+            This enhancement of the previous application greatly helped me
+            further develop my skills around data structures and algorithms. I
+            gained hands-on experience setting up, configuring, and connecting
+            to a MongoDB database. I also learned how to cross-reference
+            database records, which reduces redundant data. I created mongoose
+            schema to define the data structures, and paired those with
+            controller files, which executed the manipulation of the data. I
+            made sure to use efficient algorithms when parsing, passing, and
+            retrieving data. Only the data that was needed was accessed, without
+            unnecessarily passing any other data. Some information was parsed
+            from ObjectIds, reducing the need for additional data retrieval.
+          </p>
+          <p>
+            Developing this application from start to finish taught me a lot
+            about software engineering. I learned how important it is to
+            thoroughly plan the data structure, database structure, classes, and
+            UI. By thoroughly identifying the needs of every relationship and
+            function, valuable development time can be reduced. I successfully
+            created frontend and backend frameworks, using routes, CORS and an
+            HTTP client to allow the two to communicate.
+          </p>
+          <p>
+            I built dozens of JavaScript, TypeScript, and HTML files, resulting
+            in a greater understanding of their architecture and functionality.
+            I implemented functions that worked with the current frameworks of
+            the application and removed those that didn’t. For example, I began
+            using the NgZone library to trigger page refreshes when the data
+            changed. This didn’t always work with every page though, so instead
+            I began using the ChangeDetectorRef library. This library was much
+            more reliable and resulted in the desired functionality.
+          </p>
+          <p>
+            I implemented error handling across the application, ensuring that a
+            majority of problems were appropriately caught and handled. This
+            reduced the number of silent crashes. I also used asynchronous
+            functions, in order to maintain a free-flowing data stream. Without
+            these, communication between the server or components could be
+            delayed if a particular function is taking a long time to finish
+            processing.
+          </p>
+          <p>
+            Finally, secure coding principles were implemented. I used the
+            Express-rate-limiter, CORS, and Helmet libraries to ensure safe
+            program function. Because this is a web-based application, these
+            libraries protect from cross-origin requests, rapid brute force
+            attacks, and HTTP injection attacks. Along with user credentials,
+            this helps create a secure application. An AuthGuard file was used,
+            to limit page access to only those with the proper credentials.
+            Lastly, any connection credentials or JSON web tokens were stored in
+            a .env file, ensuring their security.
+          </p>
+          <h5>Skills implementation</h5>
+          <p>
+            I decided to use the MEAN stack framework (MongoDB, Express,
+            Angular, Node.js) for my enhanced project, not only because of the
+            wide range of skills needed to write such a program, but also due to
+            its popularity in professional software development. Not only was
+            the application now a fullstack program, but I also added much more
+            functionality than the original application.
+          </p>
+          <p>
+            When first developing the application, I set up a MongoDB database.
+            This database stores all the document information, such as artists,
+            albums, users, etc. I gained valuable hands-on experience creating a
+            database, configuring connections, and using object references to
+            reduce data redundancy. I stored the database connection credentials
+            in a .env file and put it in a .gitignore file, to protect them from
+            being exposed.
+          </p>
+          <p>
+            I used Mongoose to create schemas to maintain consistent data
+            structures. I learned how to use MongoDB ObjectIds to
+            cross-reference other records. Because of this referencing, I also
+            needed to use the populate() function in my controller files, to
+            correctly retrieve the data to display, rather than only displaying
+            the raw ObjectId. I used the built-in Mongoose function, timestamps,
+            to be able to read and display when a document was created and
+            updated. This helps streamline the codebase and improve the user
+            experience.
+          </p>
+          <p>
+            Once the database was created, I created the Express server within
+            the application. This file contains the Express import, as well as
+            other important libraries. I used Mongoose for communication with
+            MongoDB, CORS for cross-origin communication between the frontend
+            and backend, Dotenv for secret keeping, Express-rate-limit to
+            protect against brute-force attacks, and Helmet to provide secure
+            HTTP headers. Using these libraries allows for efficient
+            communication between the frontend, the server, and the database.
+          </p>
+          <p>
+            I also included route handling within the Express file. These routes
+            handle incoming requests and send them to the appropriate file. In
+            this program, I used an MVC framework. The functionality is split
+            between models, views, and controllers. The routes link these
+            components, allowing for efficient processing. Having each function
+            in its own file also makes the codebase easier to debug and make
+            changes.
+          </p>
+          <p>
+            The frontend development gave me valuable practice using TypeScript
+            and HTML. Each page of the application has its own Angular
+            component, consisting of a TypeScript file, HTML file, and CSS file.
+            I began development with the TypeScript files for each component,
+            since this is where the functionality is based. I learned about, and
+            implemented, many different libraries throughout the frontend
+            development process. I used CommonModule to enable NgFor and NgIf
+            functionality in the HTML files. These functions let me add more
+            dynamic control to the pages.
+          </p>
+          <p>
+            I made extensive use of FormBuilder, FormGroup, Validators, and the
+            ReactiveFormsModule. These were used to create and validate forms.
+            These forms were used on pages where users can add or edit songs,
+            albums, playlists, and artists. The Validators library added
+            built-in validation to form input, reducing the need for additional
+            verification in the TypeScript file or backend.
+          </p>
+          <p>
+            I also used the Router and RouterLink libraries to implement
+            navigation and routing. These libraries allowed me to easily use
+            links in my HTML files and to redirect the user to the appropriate
+            pages. ForkJoin was another important library. This let me retrieve
+            multiple sets of data at the same time, which made the processing
+            time much faster.
+          </p>
+          <p>
+            When the same functionality was needed across the application, I
+            created shared services. Each document type (artist, song, etc.)
+            used its own shared service. These services could be called from any
+            file and then communicate with the backend to perform common
+            functions, such as getting one record, getting multiple records,
+            updating a record, or deleting a record.
+          </p>
+          <p>
+            Two additional services were created for this application:
+            SessionService and ConfirmDialogService. Rather than creating the
+            same code on every page, these services were called when needed. The
+            SessionService stored user login information in local storage,
+            maintaining the user’s logged in status across all pages. The
+            ConfirmDialogService displayed a window to the user, asking them to
+            confirm deletion. Once confirmed or declined, the result was sent
+            back to the original caller file, and processing continued.
+          </p>
+          <p>
+            The HTML files were the other file in each frontend component, and
+            these determined how data was displayed. I used the Bootstrap
+            library to quickly implement consistent styling across all pages. I
+            learned how to pass dynamic values, iterate over arrays, and use
+            if/else statements to handle displays based on variables. I used
+            if/else statements to dynamically display a ‘Loading’ message if the
+            data had not yet been received. This made sure to let the user know
+            that the system was still processing.
+          </p>
+          <p>
+            I learned a great deal about software development throughout my
+            degree program, as well as while creating this application. This
+            final project demonstrates competency in the following areas:
+          </p>
+          <ul>
+            <li>Use Version Control Systems</li>
+            <li>Create and communicate with a MongoDB database</li>
+            <li>Create Express and Angular components</li>
+            <li>Style pages with HTML and Bootstrap</li>
+            <li>Properly safeguard connection secrets</li>
+            <li>Send and receive secure HTTP requests</li>
+            <li>Implement efficient algorithms</li>
+            <li>Employ MVC architecture</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Code Review -->
+      <section id="review" class="mb-5">
+        <h2 class="section-heading">Code review</h2>
+        <div class="review-card d-flex align-items-center gap-3 flex-wrap">
+          <div class="flex-grow-1">
+            <strong class="d-block" style="font-size: 0.9rem"
+              >Pre-enhancement code review</strong
+            >
+            <span class="text-muted" style="font-size: 0.83rem">
+              This code review covers the original project, before enhancement.
+              Topics covered include:
+              <ul class="mb-0">
+                <li>Ineffieciencies</li>
+                <li>Insecure practices</li>
+                <li>Planned improvements</li>
+              </ul>
+            </span>
+          </div>
+          <a
+            class="btn-watch"
+            href="https://youtu.be/5RzOHtqSXUs?si=0MdmxFWVM_Wl_WrP"
+            target="_blank"
+          >
+            Watch <i class="bi bi-box-arrow-up-right ms-1"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- Artifact -->
+      <section id="artifact">
+        <h2 class="section-heading">Artifact</h2>
+        <div class="artifact-outer">
+          <!-- Artifact header -->
+          <h3>Jukebox</h3>
+          <p class="artifact-source">
+            Originally developed in CS-310 - Collaboration and Team Project
+          </p>
+          <p class="artifact-desc">
+            The original assignment was a partially completed jukebox-style
+            program, written in C++. The program stored information about songs,
+            artists, students, and playlists. The user could search for a
+            playlist by name and the playlist would be displayed to the user.
+            The program was created in February 2026 and modified over the
+            following weeks. 
+            <br><br>
+            I chose this artifact because it presented many
+            opportunities for improvement. First, I had the opportunity to take
+            the C++ program and convert it into JavaScript. Also, the current
+            functionality was extremely limited, and the data was hardcoded into
+            the program files. Additionally, the program was only able to run on
+            a local machine. There was no connectivity to the web or other
+            users. These opportunities left me wanting to turn this program into
+            a full stack web application. Turning this into a full stack web
+            application required a variety of skills across many different
+            frameworks. I developed full backend functionality,
+            created a database, and developed the frontend components.
+          </p>
+
+          <a class="code-link" href="https://github.com/bgSNHU/ePortfolio" target="_blank"
+            >View codebase</a
+          >
+
+          <!-- Narrative cards -->
+          <h6 class="pt-4">Narratives</h6>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <div class="narrative-card">
+                <h4>Narrative One</h4>
+                <p>
+                  This narrative describes my work in researching best practices,
+                   frameworks, and developing the basic program structure.
+                </p>
+                <a
+                  class="narrative-link"
+                  href="Milestone two narrative.docx"
+                  target="_blank"
+                >Read narrative</a>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="narrative-card">
+                <h4>Narrative Two</h4>
+                <p>
+                  This narrative explains the early stages of setting 
+                  up the program logic. This stage is where I began 
+                  to separate the frontend from the backend and add views and controllers.
+                </p>
+                <a
+                  class="narrative-link"
+                  href="Milestone three narrative.docx"
+                  target="_blank"
+                >Read narrative</a>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <div class="narrative-card">
+                <h4>Narrative Three</h4>
+                <p>
+                  This final narrative discusses the development of 
+                  MongoDB documents, using ObjectIds to reduce data redundancy,
+                  and my reflection on the importance of early program design
+                  using class diagrams and sequence diagrams.
+                </p>
+                <a
+                  class="narrative-link"
+                  href="Milestone four narrative.docx"
+                  target="_blank"
+                >Read narrative</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
