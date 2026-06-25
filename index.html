@@ -608,28 +608,28 @@
                 </p>
                 <a
                   class="narrative-link"
-                  data-toggle="collapse"
-                  href="#MilestoneThreeNarrative"
-                  role="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#MilestoneThreeNarrative"
                   aria-expanded="false"
                   aria-controls="MilestoneThreeNarrative"
-                  target="_blank"
+                  role="button"
                 >Read narrative</a>
+                <div class="collapse mt-2" id="MilestoneThreeNarrative">
+                  <div class="border-top pt-2" style="font-size:0.78rem; color:#444; line-height:1.65;">
+                    Work progressed this week on enhancing a previous class project. The original project was a jukebox-style program. It was written in C++, and stored information about students, songs, artists, and playlists. The functionality was limited in the original program. With room for improvement, as well as the opportunity to transition this program to a fullstack web application, this program was a good choice for improvement. 
+    Up to this point, the main focus of building the new application was setting up the program structure. I separated the backend and frontend code into separate folders within the application, making it easier to develop and debug. Within the backend folder, separate files were created for database creation, server configuration, models, controllers, and routes. The frontend folder contains individual angular components for all the different views and pages within the finished application. There are also models, routes, and services within the frontend. With the basic structure built, I began writing the logic for the program to function. 
+    I viewed many more tutorials this week, as well as reviewing documentation for Angular, MongoDB, and Express. I began developing the backend functions first, since this is what everything else in the program will need to function. Throughout this week’s development, I began to see how the different components of the application communicate with each other. 
+    My research helped me determine the best order in which to develop the program. Starting with the most important piece of the application, the server, I used Express documentation to figure out how & which libraries to import (express, mongoose, cors, dotenv) as well as configure the server. I then configured the database connection using a guide from MongoDB and mongoose. This file uses my database connection string, which is secretly stored in a .env file. The database connection file also catches any errors that may arise when connecting. 
+    With the server and database configured, I could begin building the structures for my data. Using mongoose, I was able to create schema for each document type in my program. These schema define the structure & types of data for each item within the program (songs, artists, albums, etc.). Mongoose uses these files when creating and manipulating data within MongoDB. 
+    Once I had the blueprint for my data, I could begin building the functions that would manipulate the data using CRUD operations. This logic is in a controller file. Each controller has functions to create an item, get a single item, update an item, or delete an item. I made sure to wrap each function in a try/catch block, in order to handle any errors. I learned a lot about asynchronous functions during this development, since JavaScript uses this to ensure that data can always keep flowing and there aren’t bottlenecks. Finally, I added routes to my backend folder. These simple functions use Express’ built-in router function to take a url, and direct the data to the appropriate place (in this case, the controller files). 
+    The frontend is similar to the backend, in that it also contains routes, models, and controllers (called services in the frontend). Just like the backend, the models define the data structure of documents in the database. The service files contain the functions for CRUD operations. These take data, use the route files to communicate with the backend, and receive data in return. Additionally, there are Angular component files for every web page on the application. These files take html, CSS, and Javascript commands in order to display data in an interactive web page. 
+    Progressing to this stage has taught me a lot about a fullstack program. I am more able to clearly see how all the components talk to each other. Developing the functionality also required me to develop appropriate functions. I used the HTTPClient on the backend, to send HTTP requests to the frontend. I used mongoose commands to interact with the MongoDB database, and I used TypeScript and HTML to display interactive web pages. There is still a lot more to develop, but the program so far is at least partially functional. In the coming weeks, this functionality will be expanded and styling will be implemented to create an aesthetically pleasing program.
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div class="collapse" id="MilestoneThreeNarrative">
-              <div class="card-body">
-                Work progressed this week on enhancing a previous class project. The original project was a jukebox-style program. It was written in C++, and stored information about students, songs, artists, and playlists. The functionality was limited in the original program. With room for improvement, as well as the opportunity to transition this program to a fullstack web application, this program was a good choice for improvement. 
-Up to this point, the main focus of building the new application was setting up the program structure. I separated the backend and frontend code into separate folders within the application, making it easier to develop and debug. Within the backend folder, separate files were created for database creation, server configuration, models, controllers, and routes. The frontend folder contains individual angular components for all the different views and pages within the finished application. There are also models, routes, and services within the frontend. With the basic structure built, I began writing the logic for the program to function. 
-I viewed many more tutorials this week, as well as reviewing documentation for Angular, MongoDB, and Express. I began developing the backend functions first, since this is what everything else in the program will need to function. Throughout this week’s development, I began to see how the different components of the application communicate with each other. 
-My research helped me determine the best order in which to develop the program. Starting with the most important piece of the application, the server, I used Express documentation to figure out how & which libraries to import (express, mongoose, cors, dotenv) as well as configure the server. I then configured the database connection using a guide from MongoDB and mongoose. This file uses my database connection string, which is secretly stored in a .env file. The database connection file also catches any errors that may arise when connecting. 
-With the server and database configured, I could begin building the structures for my data. Using mongoose, I was able to create schema for each document type in my program. These schema define the structure & types of data for each item within the program (songs, artists, albums, etc.). Mongoose uses these files when creating and manipulating data within MongoDB. 
-Once I had the blueprint for my data, I could begin building the functions that would manipulate the data using CRUD operations. This logic is in a controller file. Each controller has functions to create an item, get a single item, update an item, or delete an item. I made sure to wrap each function in a try/catch block, in order to handle any errors. I learned a lot about asynchronous functions during this development, since JavaScript uses this to ensure that data can always keep flowing and there aren’t bottlenecks. Finally, I added routes to my backend folder. These simple functions use Express’ built-in router function to take a url, and direct the data to the appropriate place (in this case, the controller files). 
-The frontend is similar to the backend, in that it also contains routes, models, and controllers (called services in the frontend). Just like the backend, the models define the data structure of documents in the database. The service files contain the functions for CRUD operations. These take data, use the route files to communicate with the backend, and receive data in return. Additionally, there are Angular component files for every web page on the application. These files take html, CSS, and Javascript commands in order to display data in an interactive web page. 
-Progressing to this stage has taught me a lot about a fullstack program. I am more able to clearly see how all the components talk to each other. Developing the functionality also required me to develop appropriate functions. I used the HTTPClient on the backend, to send HTTP requests to the frontend. I used mongoose commands to interact with the MongoDB database, and I used TypeScript and HTML to display interactive web pages. There is still a lot more to develop, but the program so far is at least partially functional. In the coming weeks, this functionality will be expanded and styling will be implemented to create an aesthetically pleasing program.
-              </div>
-            </div>
+            
  
 
 
@@ -644,18 +644,15 @@ Progressing to this stage has taught me a lot about a fullstack program. I am mo
                 </p>
                 <a
                   class="narrative-link"
-                  data-toggle="collapse"
-                  href="#MilestoneFourNarrative"
-                  role="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#MilestoneFourNarrative"
                   aria-expanded="false"
                   aria-controls="MilestoneFourNarrative"
-                  target="_blank"
+                  role="button"
                 >Read narrative</a>
-              </div>
-            </div>
 
-            <div class="collapse" id="MilestoneThreeNarrative">
-              <div class="card-body">
+                <div class="collapse mt-2" id="MilestoneFourNarrative">
+                  <div class="border-top pt-2" style="font-size:0.78rem; color:#444; line-height:1.65;">
                 Work continued this week on my Jukebox project. This project came from a previous SNHU course, Collaboration & Team project. The original program was written in C++. It contained hardcoded data about students, songs, artists, and playlists. Using a simple search menu, users could find other user’s playlists; but only if they typed in the exact string name.
 I have been working to expand the program functionality and convert it into a fullstack web application, using the MEAN framework. The file structure of the application is complete, and I have been working on completing the logic that will let the program function as intended. The further along I get in this project, the more I understand how important it is to fully plan out a program’s structure. I have had to redo a lot of work, multiple times, because of oversight about how a dataset is structured. 
 Most of the rework has been with the database documentation. As I was building the logic, I realized that I needed to use ObjectId references within the MongoDB data, so other objects could reference them. For example, when building the page to add an album, the user could simply type in the Artist name, but this presented a few problems. One, this could lead to many duplicate Artists, when there should only be one. 
@@ -664,10 +661,10 @@ Additionally, I learned this week that there is a safer, more efficient ways to 
 While this week has taught me more about MongoDB databases and structures, I have also gained more experience with Postman. I used this program in a previous class but using it more often when developing this program has helped me to understand how to use it when testing routes within a program. I have used it to update data, delete data, and add data to my database. 
 I have also had to learn how to modify large files to push to GitHub. I ended up having to put my Oracle JDK package into my .gitignore file. This was the largest file and it made my project exceed the limits for a GitHub repository. Once I didn’t push that file, I was able to upload my project to GitHub. I made sure to update the README to tell users that they need to download the JDK 26 package before running the program. 
 This coming week will continue progress towards building the functionality of the program. I have many pages working now, and the next step once all pages are working, will be to style them. I plan to use the Bootstrap library, as this will make development faster, while still making a visually appealing site. 
+                </div>
               </div>
-            </div>
-
-                
+              </div>
+            </div>                
           </div>
         </div>
       </section>
